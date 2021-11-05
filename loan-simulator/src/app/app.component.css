@@ -1,0 +1,20 @@
+.summary{
+    background: purple;
+    color: white;
+    padding: 10px;
+    font-weight: 200;
+}
+
+table td{
+    min-width: 100px;
+}
+
+.center {
+    padding: 20px 0;
+    margin: 0px;
+    }
+    
+.center2 {
+    padding: 5px 0;
+    margin: 0px;
+    }
