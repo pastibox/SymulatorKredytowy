@@ -53,4 +53,4 @@ jobs:
           app-name: 'kalkulator-kredytowy'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9CED77D241BB4271A7832FB0A5B52A9C }}
-          package: .
+          package: ./dist/loan-simulator
