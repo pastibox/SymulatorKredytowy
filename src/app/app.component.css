@@ -31,13 +31,23 @@ table td{
 
 .slider-label
 {
-    width: 35px;
+    width: 20px;
     display: inline-block;
     text-align: center;
-    padding: 0px 10px;
+    margin: 0px 5px;
 }
 
 .current-row{
     background: purple;
     color: white;
 }
+mat-radio-button
+{
+    margin: 0px 10px;
+}
+
+.tab-content
+{
+    padding: 20px;
+}
+

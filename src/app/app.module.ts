@@ -11,6 +11,7 @@ import {MatTableModule} from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon'
 import localePL from '@angular/common/locales/pl';
 import { registerLocaleData } from '@angular/common';
+import {MatTabsModule} from '@angular/material/tabs';
 registerLocaleData(localePL);
 
 @NgModule({
@@ -25,7 +26,8 @@ registerLocaleData(localePL);
     MatInputModule,
     FormsModule,
     MatTableModule,
-    MatIconModule
+    MatIconModule,
+    MatTabsModule
   ],
   providers: [{provide: LOCALE_ID, useValue: 'pl' }],
   bootstrap: [AppComponent]

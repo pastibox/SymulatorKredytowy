@@ -61,7 +61,7 @@ export class AppComponent implements OnInit{
 
     rates.push(this.interestRate);
 
-    for (let i = this.interestRate + 1 ; i <= 35; i++) {
+    for (let i = this.interestRate + 1 ; i <= 31; i++) {
         rates.push(+Math.floor(i));
     }
 
