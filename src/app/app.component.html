@@ -98,6 +98,9 @@
                         <th mat-header-cell *matHeaderCellDef> Rata </th>
                         <td [ngClass]="{'current-row': element.current}" mat-cell *matCellDef="let element">
                             <span> {{element.monthlyPayment | currency : "PLN" }}</span>
+                            <div *ngIf="!element.current" [ngClass]="{'diff-green': element.monthlyPaymentDiff < 0}">
+                                <span class="diff-amount">{{element.monthlyPaymentDiff | currency : "PLN"}}</span> <span class="diff-percent">{{element.monthlyPaymentDiffPercent | percent}}</span>
+                            </div>
                         </td>
                     </ng-container>
 
@@ -105,30 +108,45 @@
                         <th mat-header-cell *matHeaderCellDef> Odsetki</th>
                         <td [ngClass]="{'current-row': element.current}" mat-cell *matCellDef="let element">
                             <span> {{element.pierwszaRata.odsetki | currency : "PLN" }}</span>
+                            <div *ngIf="!element.current" [ngClass]="{'diff-green': element.odsetkiDiff < 0}">
+                                <span class="diff-amount">{{element.odsetkiDiff | currency : "PLN"}}</span> <span class="diff-percent">{{element.odsetkiDiffPercent | percent}}</span>
+                            </div>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="rataKapital">
                         <th mat-header-cell *matHeaderCellDef> Kapitał </th>
                         <td [ngClass]="{'current-row': element.current}" mat-cell *matCellDef="let element">
                             <span> {{element.pierwszaRata.kapital | currency : "PLN" }}</span>
+                            <div *ngIf="!element.current" [ngClass]="{'diff-green': element.kapitalDiff > 0}">
+                                <span class="diff-amount">{{element.kapitalDiff | currency : "PLN"}}</span> <span class="diff-percent">{{element.kapitalDiffPercent | percent}}</span>
+                            </div>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="10odsetki">
                         <th mat-header-cell *matHeaderCellDef> Odserki 10 lat</th>
                         <td [ngClass]="{'current-row': element.current}" mat-cell *matCellDef="let element">
                             <span> {{element.odsetkiSuma10Lat | currency : "PLN"}}</span>
+                            <div *ngIf="!element.current" [ngClass]="{'diff-green': element.odsetki10Diff < 0}">
+                                <span class="diff-amount">{{element.odsetki10Diff | currency : "PLN"}}</span> <span class="diff-percent">{{element.odsetki10DiffPercent | percent}}</span>
+                            </div>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="10kapital">
                         <th mat-header-cell *matHeaderCellDef> Kapitał 10 lat</th>
                         <td [ngClass]="{'current-row': element.current}" mat-cell *matCellDef="let element">
                             <span> {{element.kapitalSuma10Lat | currency : "PLN"}}</span>
+                            <div *ngIf="!element.current && loanYears > 10" [ngClass]="{'diff-green': element.kapital10Diff > 0}">
+                                <span class="diff-amount">{{element.kapital10Diff | currency : "PLN"}}</span> <span class="diff-percent">{{element.kapital10DiffPercent | percent}}</span>
+                            </div>
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="odsetkiSuma">
                         <th mat-header-cell *matHeaderCellDef> Odserki suma </th>
                         <td [ngClass]="{'current-row': element.current}" mat-cell *matCellDef="let element">
                             <span> {{element.odsetkiSuma | currency : "PLN"}}</span>
+                            <div *ngIf="!element.current" [ngClass]="{'diff-green': element.odsetkiSumaDiff < 0}">
+                                <span class="diff-amount">{{element.odsetkiSumaDiff | currency : "PLN"}}</span> <span class="diff-percent">{{element.odsetkiSumaDiffPercent | percent}}</span>
+                            </div>
                         </td>
                     </ng-container>
 
@@ -136,6 +154,9 @@
                         <th mat-header-cell *matHeaderCellDef>Koszt całkowity</th>
                         <td [ngClass]="{'current-row': element.current}" mat-cell *matCellDef="let element">
                             <span> {{element.splataRazem | currency : "PLN"}}</span>
+                            <div *ngIf="!element.current" [ngClass]="{'diff-green': element.splataRazemDiff < 0}">
+                                <span class="diff-amount">{{element.splataRazemDiff | currency : "PLN"}}</span> <span class="diff-percent">{{element.splataRazemDiffPercent | percent}}</span>
+                            </div>
                         </td>
                     </ng-container>
 

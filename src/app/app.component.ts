@@ -61,7 +61,7 @@ export class AppComponent implements OnInit{
 
     rates.push(this.interestRate);
 
-    for (let i = this.interestRate + 1 ; i <= 31; i++) {
+    for (let i = this.interestRate + 1 ; i <= 26; i++) {
         rates.push(+Math.floor(i));
     }
 
@@ -72,7 +72,7 @@ export class AppComponent implements OnInit{
      });
 
      unique.forEach( (rate) => {
-        let loan = new Loan(this.loanAmount, this.loanYears*12, rate);
+        let loan = new Loan(this.loanAmount, this.loanYears*12, rate, this.loan);
 
         if(rate == this.interestRate)
         {

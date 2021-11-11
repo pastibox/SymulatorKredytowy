@@ -1,7 +1,7 @@
 export class Loan {
 
     current:boolean = false;
-    
+
     monthlyPayment:number = 0;
     odsetkiSuma:number = 0;
     splataRazem:number = 0;
@@ -12,9 +12,141 @@ export class Loan {
 
     harmonogram: RataMiesieczna[] = [];
 
+    get monthlyPaymentDiff(): number {
+        if(this.baseLoan)
+        {
+            return this.monthlyPayment - this.baseLoan.monthlyPayment;
+        }
+
+        return 0;
+    }
+
+    get monthlyPaymentDiffPercent(): number {
+        if(this.baseLoan)
+        {
+            return (this.monthlyPayment / this.baseLoan.monthlyPayment) -1;
+        }
+        
+        return 0;
+    }
+
+    get odsetkiDiff(): number {
+        if(this.baseLoan && this.baseLoan.pierwszaRata && this.pierwszaRata)
+        {
+            return this.pierwszaRata.odsetki - this.baseLoan.pierwszaRata.odsetki;
+        }
+
+        return 0;
+    }
+
+    get odsetkiDiffPercent(): number {
+
+        if(this.baseLoan && this.baseLoan.pierwszaRata && this.pierwszaRata)
+        {
+            return (this.pierwszaRata.odsetki / this.baseLoan.pierwszaRata.odsetki) -1;
+        }
+       
+        return 0;
+    }
+
+    get kapitalDiff(): number {
+        if(this.baseLoan && this.baseLoan.pierwszaRata && this.pierwszaRata)
+        {
+            return this.pierwszaRata.kapital - this.baseLoan.pierwszaRata.kapital;
+        }
+
+        return 0;
+    }
+
+    get kapitalDiffPercent(): number {
+
+        if(this.baseLoan && this.baseLoan.pierwszaRata && this.pierwszaRata)
+        {
+            return (this.pierwszaRata.kapital / this.baseLoan.pierwszaRata.kapital) -1;
+        }
+       
+        return 0;
+    }
+
+    get odsetki10Diff(): number {
+        if(this.baseLoan)
+        {
+            return this.odsetkiSuma10Lat - this.baseLoan.odsetkiSuma10Lat;
+        }
+
+        return 0;
+    }
+
+    get odsetki10DiffPercent(): number {
+
+        if(this.baseLoan)
+        {
+            return (this.odsetkiSuma10Lat / this.baseLoan.odsetkiSuma10Lat) -1;
+        }
+       
+        return 0;
+    }
+
+    get kapital10Diff(): number {
+        if(this.baseLoan)
+        {
+            return this.kapitalSuma10Lat - this.baseLoan.kapitalSuma10Lat;
+        }
+
+        return 0;
+    }
+
+    get kapital10DiffPercent(): number {
+
+        if(this.baseLoan)
+        {
+            return (this.kapitalSuma10Lat / this.baseLoan.kapitalSuma10Lat) -1;
+        }
+       
+        return 0;
+    }
+
+    get odsetkiSumaDiff(): number {
+        if(this.baseLoan)
+        {
+            return this.odsetkiSuma - this.baseLoan.odsetkiSuma;
+        }
+
+        return 0;
+    }
+
+    get odsetkiSumaDiffPercent(): number {
+
+        if(this.baseLoan)
+        {
+            return (this.odsetkiSuma / this.baseLoan.odsetkiSuma) -1;
+        }
+       
+        return 0;
+    }
+
+    get splataRazemDiff(): number {
+        if(this.baseLoan)
+        {
+            return this.splataRazem - this.baseLoan.splataRazem;
+        }
+
+        return 0;
+    }
+
+    get splataRazemDiffPercent(): number {
+
+        if(this.baseLoan)
+        {
+            return (this.splataRazem / this.baseLoan.splataRazem) -1;
+        }
+       
+        return 0;
+    }
+
     //http://www.drewslair.com/wp-content/uploads/2018/04/Mortgage.jpg
 
-    constructor(public amount: number, public months:number, public interestRate:number) {
+    constructor(public amount: number, public months:number, public interestRate:number, private baseLoan: Loan | null = null) {
         this.recalculate();
     }
 
@@ -51,7 +183,7 @@ export class Loan {
         this.pierwszaRata = this.harmonogram[0];
 
 
-        const pierwsze10lat = this.harmonogram.slice(0, 10*12);
+        const pierwsze10lat = this.harmonogram.slice(0, 10 * 12);
         this.odsetkiSuma10Lat = pierwsze10lat.map(o=> o.odsetki).reduce((a,c)=>a + c);
         this.kapitalSuma10Lat = pierwsze10lat.map(o=> o.kapital).reduce((a,c)=>a + c);
 
