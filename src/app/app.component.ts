@@ -49,9 +49,15 @@ export class AppComponent implements OnInit{
 
     let rates:number[]=[];
 
-    /* for (let i = this.interestRate; i > 0; i--) {
-        rates.push(+i.toFixed(2));
-    } */
+    for (let i = this.interestRate; i > 0; i--) {
+        let r = +Math.floor(i);
+
+        if(r > 0)
+        {
+            rates.push(r);
+        }
+        
+    }
 
     rates.push(this.interestRate);
 
@@ -59,12 +65,20 @@ export class AppComponent implements OnInit{
         rates.push(+Math.floor(i));
     }
 
-    rates.sort(function(a, b) {
+    let unique = [...new Set(rates)];
+
+     unique.sort(function(a, b) {
         return a - b;
      });
 
-     rates.forEach( (rate) => {
+     unique.forEach( (rate) => {
         let loan = new Loan(this.loanAmount, this.loanYears*12, rate);
+
+        if(rate == this.interestRate)
+        {
+            loan.current = true;
+        }
+        
         this.symulacja.push(loan);
     });
   }

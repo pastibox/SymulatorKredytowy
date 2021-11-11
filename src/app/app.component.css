@@ -18,14 +18,16 @@ table td{
 }
 
 .center {
-    padding: 20px 0;
+    padding: 14px 0;
     margin: 0px;
+    line-height: 35px;
     }
     
 .center2 {
     padding: 5px 0;
     margin: 0px;
-    }
+    line-height: 20px;
+ }
 
 .slider-label
 {
@@ -33,4 +35,9 @@ table td{
     display: inline-block;
     text-align: center;
     padding: 0px 10px;
+}
+
+.current-row{
+    background: purple;
+    color: white;
 }

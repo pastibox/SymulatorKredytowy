@@ -78,7 +78,7 @@
     <br>
     <div class="row">
         <div class="col-md-8">
-            <h1>Symulacja wzrostu stóp procentowych</h1>
+            <h1>Symulacja zmiany stóp procentowych</h1>
             <table mat-table [dataSource]="symulacja" class="mat-elevation-z8">
 
                 <!--- Note that these columns can be defined in any order.
@@ -87,53 +87,52 @@
 
                 <ng-container matColumnDef="stopaProcentowa">
                     <th mat-header-cell *matHeaderCellDef> % </th>
-                    <td mat-cell *matCellDef="let element">
-                        <span *ngIf="element.interestRate != interestRate"> {{element.interestRate}} % </span>
-                        <span *ngIf="element.interestRate == interestRate"> {{element.interestRate}} %</span>
+                    <td [ngClass] = "{'current-row': element.current}" mat-cell *matCellDef="let element">
+                        <span> {{element.interestRate}} % </span>
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="rata">
                     <th mat-header-cell *matHeaderCellDef> Rata </th>
-                    <td mat-cell *matCellDef="let element">
+                    <td [ngClass] = "{'current-row': element.current}" mat-cell *matCellDef="let element">
                         <span> {{element.monthlyPayment | currency : "PLN" }}</span>
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="rataOdsetki">
                     <th mat-header-cell *matHeaderCellDef> Odsetki</th>
-                    <td mat-cell *matCellDef="let element">
+                    <td [ngClass] = "{'current-row': element.current}" mat-cell *matCellDef="let element">
                         <span> {{element.pierwszaRata.odsetki | currency : "PLN" }}</span>
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="rataKapital">
                     <th mat-header-cell *matHeaderCellDef> Kapitał </th>
-                    <td mat-cell *matCellDef="let element">
+                    <td [ngClass] = "{'current-row': element.current}" mat-cell *matCellDef="let element">
                         <span> {{element.pierwszaRata.kapital | currency : "PLN" }}</span>
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="10odsetki">
                     <th mat-header-cell *matHeaderCellDef> Odserki 10 lat</th>
-                    <td mat-cell *matCellDef="let element">
+                    <td [ngClass] = "{'current-row': element.current}" mat-cell *matCellDef="let element">
                         <span> {{element.odsetkiSuma10Lat | currency : "PLN"}}</span>
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="10kapital">
                     <th mat-header-cell *matHeaderCellDef> Kapitał 10 lat</th>
-                    <td mat-cell *matCellDef="let element">
+                    <td [ngClass] = "{'current-row': element.current}" mat-cell *matCellDef="let element">
                         <span> {{element.kapitalSuma10Lat | currency : "PLN"}}</span>
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="odsetkiSuma">
                     <th mat-header-cell *matHeaderCellDef> Odserki suma </th>
-                    <td mat-cell *matCellDef="let element">
+                    <td [ngClass] = "{'current-row': element.current}" mat-cell *matCellDef="let element">
                         <span> {{element.odsetkiSuma | currency : "PLN"}}</span>
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="calyKoszt">
                     <th mat-header-cell *matHeaderCellDef>Koszt całkowity</th>
-                    <td mat-cell *matCellDef="let element">
+                    <td [ngClass] = "{'current-row': element.current}" mat-cell *matCellDef="let element">
                         <span> {{element.splataRazem | currency : "PLN"}}</span>
                     </td>
                 </ng-container>

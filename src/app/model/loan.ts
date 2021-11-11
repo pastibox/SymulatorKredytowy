@@ -1,5 +1,7 @@
 export class Loan {
 
+    current:boolean = false;
+    
     monthlyPayment:number = 0;
     odsetkiSuma:number = 0;
     splataRazem:number = 0;
