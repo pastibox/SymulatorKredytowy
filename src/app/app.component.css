@@ -5,6 +5,14 @@
     font-weight: 200;
 }
 
+.summary-parameters{
+    background: rgb(20, 172, 0);
+    color: white;
+    padding: 10px;
+    font-weight: 200;
+    margin-bottom: 1px;
+}
+
 table td{
     min-width: 100px;
 }
@@ -18,3 +26,11 @@ table td{
     padding: 5px 0;
     margin: 0px;
     }
+
+.slider-label
+{
+    width: 35px;
+    display: inline-block;
+    text-align: center;
+    padding: 0px 10px;
+}

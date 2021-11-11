@@ -67,8 +67,6 @@ export class AppComponent implements OnInit{
         let loan = new Loan(this.loanAmount, this.loanYears*12, rate);
         this.symulacja.push(loan);
     });
-
-    debugger;
   }
 
 
