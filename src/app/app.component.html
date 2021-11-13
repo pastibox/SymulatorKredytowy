@@ -17,7 +17,7 @@
                 <div class="center-numeric">
                     <div class="input-group mb-3">
                         <button class="btn btn-warning" type="button" (click)="changeAmount(-10000)">-</button>
-                        <input (keypress)="isValidAmount($event)" type="text" class="form-control" [(ngModel)]="loanAmount" >
+                        <input (keypress)="isValidInt($event)" type="text" class="form-control" (change)="changeAmountInput($event)" value="{{ loanAmount| number :'1.0' }}">
                         <span class="input-group-text">PLN</span>
                         <button class="btn btn-warning" type="button"(click)="changeAmount(10000)">+</button>
                       </div>
@@ -35,7 +35,7 @@
                 <div class="center-numeric">
                     <div class="input-group mb-3">
                         <button class="btn btn-warning" type="button" (click)="changeYears(-1)">-</button>
-                        <input (keypress)="isValidYear($event)" type="text" class="form-control" [(ngModel)]="loanYears" >
+                        <input (keypress)="isValidInt($event)" type="text" class="form-control" (change)="changeYearsInput($event)" value="{{ loanYears| number :'1.0' }}">
                         <span class="input-group-text">lat</span>
                         <button class="btn btn-warning" type="button"(click)="changeYears(1)">+</button>
                       </div>

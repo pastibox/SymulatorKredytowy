@@ -130,20 +130,29 @@ export class AppComponent implements OnInit {
         }
     }
 
-    isValidAmount(event: any): boolean {
-        const charCode = (event.which) ? event.which : event.keyCode;
-        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-            return false;
-        }
-        let newValue = +(this.loanAmount + String.fromCharCode(charCode));
-        if(newValue > this.loanAmountMax)
+    changeAmountInput(val:any)
+    {
+        let changedValue = +(val.target.value);
+
+        if(!Number.isNaN(changedValue))
         {
-            return false;
+            if(changedValue >= this.loanAmountMin && changedValue <= this.loanAmountMax)
+            {
+                this.loanAmount = changedValue;
+            }
+            else if(changedValue < this.loanAmountMin)
+            {
+                this.loanAmount = this.loanAmountMin;
+            }
+            else if(changedValue > this.loanAmountMax)
+            {
+                this.loanAmount = this.loanAmountMax;
+            } 
         }
-
-        return true;
-
+       
+        val.target.value = this.loanAmount;
     }
+
 
     changeYears(changedYears: number): void {
         this.loanYears = this.loanYears + changedYears;
@@ -157,19 +166,37 @@ export class AppComponent implements OnInit {
         }
     }
 
-    isValidYear(event: any): boolean {
-        const charCode = (event.which) ? event.which : event.keyCode;
-        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-            return false;
-        }
-        let newValue = +(this.loanYears + String.fromCharCode(charCode));
-        if(newValue > this.loanYearsMax)
+    changeYearsInput(val:any)
+    {
+        let changedValue = +(val.target.value);
+
+        if(!Number.isNaN(changedValue))
         {
-            return false;
+            if(changedValue >= this.loanYearsMin && changedValue <= this.loanYearsMax)
+            {
+                this.loanYears = changedValue;
+            }
+            else if(changedValue < this.loanYearsMin)
+            {
+                this.loanYears = this.loanYearsMin;
+            }
+            else if(changedValue > this.loanYearsMax)
+            {
+                this.loanYears = this.loanYearsMax;
+            } 
+        }
+       
+        val.target.value = this.loanYears;
+    }
+
+    isValidInt(event: any): boolean {
+        const charCode = (event.which) ? event.which : event.keyCode;
+        if(charCode >= 48 && charCode <= 57)
+        {
+            return  true
         }
 
-        return true;
-
+        return false;
     }
 
     changePercent(changedPercent: number): void {
@@ -206,7 +233,7 @@ export class AppComponent implements OnInit {
 
         if(!Number.isNaN(changedValue))
         {
-            if(changedValue > this.interestRateMin && changedValue < this.interestRateMax)
+            if(changedValue >= this.interestRateMin && changedValue <= this.interestRateMax)
             {
                 this.interestRate = changedValue;
             }
