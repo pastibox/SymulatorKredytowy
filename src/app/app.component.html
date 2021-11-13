@@ -26,11 +26,11 @@
             <div>
                 <div class="parameter-label">Okres spłaty w latach</div>
                 <div>
-                    <mat-slider thumbLabel [min]="1" [max]="30" [step]="1" [(ngModel)]="loanYears"></mat-slider>
+                    <mat-slider thumbLabel [min]="loanYearsMin" [max]="loanYearsMax" [step]="1" [(ngModel)]="loanYears"></mat-slider>
                 </div>
                 <div class="slider-numbers">
-                    <div class="float-start">1</div>
-                    <div class="float-end">30</div>
+                    <div class="float-start">{{loanYearsMin}}</div>
+                    <div class="float-end">{{loanYearsMax}}</div>
                 </div>
                 <div class="center-numeric">
                     <div class="input-group mb-3">
@@ -45,11 +45,11 @@
             <div>
                 <div class="parameter-label">Oprocentowanie (WIBOR + marża)</div>
                 <div>
-                    <mat-slider thumbLabel [displayWith]="formatIntersetRate" [min]="0" [max]="30" [step]="0.05" [(ngModel)]="interestRate"></mat-slider>
+                    <mat-slider thumbLabel [displayWith]="formatIntersetRate" [min]="interestRateMin" [max]="interestRateMax" [step]="0.05" [(ngModel)]="interestRate"></mat-slider>
                 </div>
                 <div class="slider-numbers">
-                    <div class="float-start">0%</div>
-                    <div class="float-end">30%</div>
+                    <div class="float-start">{{interestRateMin}}%</div>
+                    <div class="float-end">{{interestRateMax}}%</div>
                 </div>
                 <div class="center-numeric">
                     <div class="input-group mb-3">

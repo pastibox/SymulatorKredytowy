@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
         this.startRecalculate();
     }
 
-    interestRateMin: number = 0;
+    interestRateMin: number = 0.5;
     interestRateMax: number = 30;
     _interestRate: number = 3.25;
 
