@@ -12,6 +12,16 @@ export class Loan {
 
     harmonogram: RataMiesieczna[] = [];
 
+
+    get interestRateDiff(): number {
+        if(this.baseLoan)
+        {
+            return this.interestRate - this.baseLoan.interestRate;
+        }
+
+        return 0;
+    }
+
     get monthlyPaymentDiff(): number {
         if(this.baseLoan)
         {

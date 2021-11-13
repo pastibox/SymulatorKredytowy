@@ -177,7 +177,10 @@
                     <ng-container matColumnDef="stopaProcentowa">
                         <th mat-header-cell *matHeaderCellDef> % </th>
                         <td [ngClass]="{'current-row': element.current}" mat-cell *matCellDef="let element">
-                            <span> {{element.interestRate}} % </span>
+                            <span> {{element.interestRate.toFixed(2) }} % </span>
+                            <div *ngIf="!element.current" [ngClass]="{'diff-green': element.interestRateDiff < 0}">
+                                <span class="diff-amount"><span *ngIf="element.interestRateDiff > 0">+</span>{{element.interestRateDiff.toFixed(2)}} %</span>
+                            </div>
                         </td>
                     </ng-container>
 
@@ -210,7 +213,7 @@
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="10odsetki">
-                        <th mat-header-cell *matHeaderCellDef> Odsetki 10 lat</th>
+                        <th mat-header-cell *matHeaderCellDef> Odsetki <span *ngIf="loanYears >= 10">10</span><span *ngIf="loanYears < 10">{{ loanYears }}</span> lat</th>
                         <td [ngClass]="{'current-row': element.current}" mat-cell *matCellDef="let element">
                             <span> {{element.odsetkiSuma10Lat | currency : "PLN"}}</span>
                             <div *ngIf="!element.current" [ngClass]="{'diff-green': element.odsetki10Diff < 0}">
@@ -219,7 +222,7 @@
                         </td>
                     </ng-container>
                     <ng-container matColumnDef="10kapital">
-                        <th mat-header-cell *matHeaderCellDef> Kapitał 10 lat</th>
+                        <th mat-header-cell *matHeaderCellDef> Kapitał <span *ngIf="loanYears >= 10">10</span><span *ngIf="loanYears < 10">{{ loanYears }}</span> lat</th>
                         <td [ngClass]="{'current-row': element.current}" mat-cell *matCellDef="let element">
                             <span> {{element.kapitalSuma10Lat | currency : "PLN"}}</span>
                             <div *ngIf="!element.current && loanYears > 10" [ngClass]="{'diff-green': element.kapital10Diff > 0}">

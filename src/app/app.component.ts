@@ -129,21 +129,50 @@ export class AppComponent implements OnInit {
 
         let rates: number[] = [];
 
-        for (let i = this.interestRate; i > 0; i--) {
-            let r = +Math.floor(i);
+        let tempRate = this.interestRate;
+        
+        for (let i = 1; i <= 8; i++) {
 
-            if (r > 0) {
-                rates.push(r);
+            tempRate  = tempRate - 0.25;
+
+            let rate = +(tempRate.toFixed(2));
+            
+            if(rate > 0)
+            {
+                rates.push(rate);
             }
+        }
 
+        for (let i = tempRate - 1; i >  0; i--) {
+
+            let rate = +(i.toFixed(2));
+
+            if(rate > 0)
+            {
+                rates.push(rate);
+            }
+        }
+
+        tempRate = this.interestRate;
+
+        for (let i = 1; i <= 8; i++) {
+            tempRate  = tempRate + 0.25;
+
+            let rate = +(tempRate.toFixed(2));
+            
+            if(rate > 0)
+            {
+                rates.push(rate);
+            }
+        
+        }
+
+        for (let i = tempRate + 1; i <= 20; i++) {
+            rates.push(+(i.toFixed(2)));
         }
 
         rates.push(this.interestRate);
-
-        for (let i = this.interestRate + 1; i <= 26; i++) {
-            rates.push(+Math.floor(i));
-        }
-
+        
         let unique = [...new Set(rates)];
 
         unique.sort(function (a, b) {
@@ -159,6 +188,8 @@ export class AppComponent implements OnInit {
 
             this.symulacja.push(loan);
         });
+
+        console.log(unique);
     }
 
     changeAmount(changedAmount: number): void {
