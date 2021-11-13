@@ -198,7 +198,26 @@ export class RataMiesieczna {
         kwotaKredytu :number = 0;
         kwotaKredytuPozostala :number = 0;
         rataKredytu:number = 0
-        
+
+        get kapitalPercent(): number {
+            let value = +((this.kapital / this.rataKredytu) * 100).toFixed(2);
+
+            if(value < 10)
+            {
+                value = 10;
+            }
+            else if(value > 90)
+            {
+                value = 90;
+            }
+
+            return value;
+        }
+
+        get odsetkiPercent(): number {
+            return 100-this.kapitalPercent;
+        }
+       
         constructor(public numerMiesiaca:number, pozostalaKwota: number, oprocentowanie:number, rataKredytu:number) {
             
            this.kwotaKredytu = pozostalaKwota;

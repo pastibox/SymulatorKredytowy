@@ -70,7 +70,7 @@
                         <label style="width: 150px;" class="btn btn-outline-warning" for="btnradio1">Raty stałe</label>
 
                         <input disabled type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                        <label style="width: 150px;"  class="btn btn-outline-warning" for="btnradio2">Raty malejące</label>
+                        <label style="width: 150px;" class="btn btn-outline-warning" for="btnradio2">Raty malejące</label>
                     </div>
                 </div>
                 <br>
@@ -78,27 +78,85 @@
 
         </div>
         <div class="col-md-6">
-            <div class="summary-parameters">
-                <div>
-                    <p class="center" style="font-size: 30px;">Kwota kredytu : <b>{{loanAmount | currency : "PLN"}}</b></p>
+            <div class="summary summary-parameters">
+                <div class="row">
+                    <div class="float-start">
+                        <div class="summary-box">
+                            <h1>Kwota kredytu</h1>
+                            <div class="summary-value">
+                                {{loanAmount | currency : "PLN"}}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    Okres spłaty w latach : <b style="font-size: 24px;">{{loanYears }}</b>
-                </div>
-                <div>
-                    Oprocentowanie (WIBOR + marża) : <b style="font-size: 24px;">{{interestRate | number :'1.2-2'}} %</b>
+                <div class="row">
+                    <div>
+                        <div class="float-start summary-box">
+                            <h2>Okres spłaty w latach</h2>
+                            <div class="summary-value">
+                                {{loanYears }}
+                            </div>
+                        </div>
+                        <div class="float-start summary-box">
+                            <h2>Oprocentowanie</h2>
+                            <div class="summary-value">
+                                {{interestRate | number :'1.2-2'}} %
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <div class="summary">
+            <div class="summary summary-calculation">
+                <div class="row">
+
+                    <div>
+                        <div class="float-start summary-box">
+
+                            <h1>Rata miesięczna</h1>
+                            <div style="font-size: 37px; margin-bottom: 5px;" class="summary-value">
+                                {{loan.monthlyPayment | currency : "PLN"}}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <br>
                 <div>
-                    <p class="center" style="font-size: 30px;">Rata miesięczna : <b>{{loan.monthlyPayment | currency : "PLN"}}</b></p>
+                    <div class="progress-labels">
+                        <div class="float-start">RATA KAPITAŁOWA</div>
+                        <div class="float-end">RATA ODSETKOWA</div>
+                        <div class="clearfix"></div>
+                    </div>
                 </div>
-                <div style="line-height: 30px;">
-                    Odsetki suma : <b style="font-size: 24px;">{{loan.odsetkiSuma | currency : "PLN" }}</b>
+
+                <div class="progress">
+                    <div class="progress-bar bg-warning" role="progressbar" [style.width.%]="loan.pierwszaRata?.kapitalPercent" aria-valuenow="loan.pierwszaRata?.kapitalPercent" aria-valuemin="0" aria-valuemax="100">{{loan.pierwszaRata?.kapital | currency : "PLN"}}</div>
+                    <div class="progress-bar bg-danger" role="progressbar" [style.width.%]="loan.pierwszaRata?.odsetkiPercent" aria-valuenow="loan.pierwszaRata?.odsetkiPercent" aria-valuemin="0" aria-valuemax="100">{{loan.pierwszaRata?.odsetki | currency : "PLN"}}</div>
                 </div>
-                <div style="line-height: 30px;">
-                    Spłata razem :&nbsp; <b style="font-size: 24px;">{{loan.splataRazem | currency : "PLN"}}</b>
+                <div class="row">
+                    <div>
+                        <div class="float-start summary-box">
+
+                            <h2>Odsetki suma</h2>
+                            <div class="summary-value">
+                                {{loan.odsetkiSuma | currency : "PLN" }}
+                            </div>
+
+                        </div>
+                        <div class="float-start summary-box">
+
+                            <h2>Spłata razem</h2>
+                            <div class="summary-value">
+                                {{loan.splataRazem | currency : "PLN"}}
+                            </div>
+
+
+                        </div>
+
+                    </div>
                 </div>
+                <br>
             </div>
 
         </div>

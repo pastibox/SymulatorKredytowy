@@ -1,16 +1,42 @@
-.summary{
-    background: purple;
-    color: white;
+.summary
+{
     padding: 10px;
-    font-weight: 200;
+}
+
+.summary h1
+{
+   margin-bottom: 5px;
+   font-weight: 300;
+   color: rgba(255,255,255,0.7);
+}
+
+.summary h2
+{
+   margin-bottom: 5px;
+   font-weight: 300;
+   color: rgba(255,255,255,0.7);
+}
+
+.summary .summary-value
+{
+   font-size: 24px;
+   font-weight: 500;
+   color: white;
+   text-shadow: 0px 1px 2px rgba(66, 68, 90, 1);
 }
 
 .summary-parameters{
     background: rgb(20, 172, 0);
-    color: white;
-    padding: 10px;
-    font-weight: 300;
     margin-bottom: 1px;
+}
+
+.summary-calculation
+{
+    background: purple;
+}
+.summary-box
+{
+    padding: 0px 10px;
 }
 
 table td{
@@ -127,4 +153,24 @@ mat-radio-button
   .btn-warning:hover,.btn-warning:focus, .btn-check:checked+.btn-outline-warning:hover,.btn-check:checked+.btn-outline-warning:focus
   {
     box-shadow: 0 0 0 0.25rem rgb(142 0 159 / 28%);
+  }
+
+  .progress{
+      margin: 10px 0px;
+      height: 40px;
+      -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 1);
+      -moz-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 1);
+      box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 1);
+     
+  }
+
+  .progress-bar
+  {
+    font-size: 13px;
+    text-shadow: 0px 1px 2px rgba(66, 68, 90, 1);
+  }
+
+  .progress-labels
+  {
+      color: white;
   }
