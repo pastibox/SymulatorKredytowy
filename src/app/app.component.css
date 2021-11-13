@@ -116,7 +116,7 @@ mat-radio-button
       width: 100%;
   }
 
-  .btn-warning
+  .btn-warning, .btn-check:checked+.btn-outline-warning
   {
       background-color: purple;
       color: white;
@@ -124,7 +124,7 @@ mat-radio-button
       
   }
 
-  .btn-warning:hover,.btn-warning:focus
+  .btn-warning:hover,.btn-warning:focus, .btn-check:checked+.btn-outline-warning:hover,.btn-check:checked+.btn-outline-warning:focus
   {
     box-shadow: 0 0 0 0.25rem rgb(142 0 159 / 28%);
   }

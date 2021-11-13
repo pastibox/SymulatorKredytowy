@@ -4,7 +4,7 @@
 <div class="container-xxl">
     <h1>Kalkulator kredytowy</h1>
     <div class="row">
-        
+
         <div class="col-md-6">
             <div>
                 <div class="parameter-label">Kwota kredytu</div>
@@ -20,8 +20,8 @@
                         <button class="btn btn-warning" type="button" (click)="changeAmount(-10000)">-</button>
                         <input (keypress)="isValidInt($event)" type="text" class="form-control" (change)="changeAmountInput($event)" value="{{ loanAmount| number :'1.0' }}">
                         <span class="input-group-text">PLN</span>
-                        <button class="btn btn-warning" type="button"(click)="changeAmount(10000)">+</button>
-                      </div>
+                        <button class="btn btn-warning" type="button" (click)="changeAmount(10000)">+</button>
+                    </div>
                 </div>
             </div>
             <div>
@@ -38,8 +38,8 @@
                         <button class="btn btn-warning" type="button" (click)="changeYears(-1)">-</button>
                         <input (keypress)="isValidInt($event)" type="text" class="form-control" (change)="changeYearsInput($event)" value="{{ loanYears| number :'1.0' }}">
                         <span class="input-group-text">lat</span>
-                        <button class="btn btn-warning" type="button"(click)="changeYears(1)">+</button>
-                      </div>
+                        <button class="btn btn-warning" type="button" (click)="changeYears(1)">+</button>
+                    </div>
                 </div>
             </div>
 
@@ -55,11 +55,25 @@
                 <div class="center-numeric">
                     <div class="input-group mb-3">
                         <button class="btn btn-warning" type="button" (click)="changePercent(-0.05)">-</button>
-                        <input (keypress)="isValidPercent($event)" (change)="changePercentInput($event)" type="text" class="form-control" value="{{ interestRate | number :'1.2-2' }}" >
+                        <input (keypress)="isValidPercent($event)" (change)="changePercentInput($event)" type="text" class="form-control" value="{{ interestRate | number :'1.2-2' }}">
                         <span class="input-group-text">%</span>
-                        <button class="btn btn-warning" type="button"(click)="changePercent(0.05)">+</button>
-                      </div>
+                        <button class="btn btn-warning" type="button" (click)="changePercent(0.05)">+</button>
+                    </div>
                 </div>
+            </div>
+
+            <div>
+                <div class="parameter-label">Typ raty</div>
+                <div class="center-numeric">
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+                        <label style="width: 150px;" class="btn btn-outline-warning" for="btnradio1">Raty stałe</label>
+
+                        <input disabled type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+                        <label style="width: 150px;"  class="btn btn-outline-warning" for="btnradio2">Raty malejące</label>
+                    </div>
+                </div>
+                <br>
             </div>
 
         </div>
@@ -83,12 +97,12 @@
                     Odsetki suma : <b style="font-size: 24px;">{{loan.odsetkiSuma | currency : "PLN" }}</b>
                 </div>
                 <div style="line-height: 30px;">
-                    Spłata razem  :&nbsp; <b style="font-size: 24px;">{{loan.splataRazem | currency : "PLN"}}</b>
+                    Spłata razem :&nbsp; <b style="font-size: 24px;">{{loan.splataRazem | currency : "PLN"}}</b>
                 </div>
             </div>
 
         </div>
-        
+
     </div>
     <hr class="d-none d-md-block">
     <br>
