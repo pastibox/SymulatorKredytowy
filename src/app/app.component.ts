@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Loan } from './model/loan';
 
 @Component({
@@ -52,12 +53,53 @@ export class AppComponent implements OnInit {
 
     simulationDisplayedColumns: string[] = ['stopaProcentowa', 'rata', 'rataOdsetki', 'rataKapital', '10odsetki', '10kapital', 'odsetkiSuma', 'calyKoszt'];
 
-    constructor() {
+    constructor(private router: Router, private activatedRoute: ActivatedRoute) {
         this.loan = new Loan(this.loanAmount, this.loanYears * 12, this.interestRate);
     }
+
     ngOnInit(): void {
-        this.recalculateLoan(this.loanAmount, this.loanYears, this.interestRate);
+
+        setTimeout(() => {
+            
+            const kwota: string | null = this.activatedRoute.snapshot.queryParamMap.get('kwota');
+            const okres: string | null = this.activatedRoute.snapshot.queryParamMap.get('okres');
+            const oprocentowanie: string | null= this.activatedRoute.snapshot.queryParamMap.get('oprocentowanie');
+
+            if(kwota && !Number.isNaN(kwota))
+            {
+                this.loanAmount = +(kwota)
+            }
+
+            if(okres && !Number.isNaN(okres))
+            {
+                this.loanYears = +(okres)
+            }
+
+            if(oprocentowanie && !Number.isNaN(oprocentowanie))
+            {
+                this.interestRate = +(oprocentowanie)
+            }
+
+            this.recalculateLoan(this.loanAmount, this.loanYears, this.interestRate);
+
+          });
+
     }
+
+    appendAQueryParam() {
+
+        const urlTree = this.router.createUrlTree([], {
+           queryParams: {
+              kwota: this.loanAmount,
+              okres: this.loanYears,
+              oprocentowanie: this.interestRate
+           },
+           queryParamsHandling: "merge",
+           preserveFragment: true
+        });
+     
+        this.router.navigateByUrl(urlTree);
+     }
 
     startRecalculate() {
         clearTimeout(this.timeout);
@@ -81,6 +123,7 @@ export class AppComponent implements OnInit {
     }
 
     recalculateLoan(loanAmount:number, loanYears:number, interestRate:number) {
+        this.appendAQueryParam();
         this.symulacja = [];
         this.loan = new Loan(loanAmount, loanYears * 12, interestRate);
 
