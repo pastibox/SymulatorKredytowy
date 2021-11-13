@@ -53,18 +53,20 @@ mat-radio-button
 
 
 .diff-amount{
-    color: red;
+    color: #d90000;
     font-size: 10px;
+    font-weight: 400;
 }
 
 .diff-percent{
     font-size: 10px;
-    color: white;
-    background: red;
+    color: #d90000;
+    background: #ffdcdc;
     margin-left: 2px;
     border-radius: 4px;
     padding: 1px 4px;
     margin-right: 2px;
+    font-weight: 400;
 
 }
 
@@ -73,6 +75,7 @@ mat-radio-button
 }
 
 .diff-green .diff-percent{
-    background: rgb(20, 172, 0);
+    color: rgb(20, 172, 0);
+    background: rgb(23 177 3 / 21%);
 }
 
