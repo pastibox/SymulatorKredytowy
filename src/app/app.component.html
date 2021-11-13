@@ -1,7 +1,7 @@
 <router-outlet></router-outlet>
 
 <br>
-<div class="container-xxl">
+<div class="container-xxl calc">
     <h1>Kalkulator kredytowy</h1>
     <div class="row">
 
@@ -70,7 +70,7 @@
                         <label style="width: 150px;" class="btn btn-outline-warning" for="btnradio1">Raty stałe</label>
 
                         <input disabled type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                        <label style="width: 150px;" class="btn btn-outline-warning" for="btnradio2">Raty malejące</label>
+                        <label style="width: 150px;" class="btn btn-outline-success" for="btnradio2">Raty malejące</label>
                     </div>
                 </div>
                 <br>
@@ -131,7 +131,7 @@
                 </div>
 
                 <div class="progress">
-                    <div class="progress-bar bg-warning" role="progressbar" [style.width.%]="loan.pierwszaRata?.kapitalPercent" aria-valuenow="loan.pierwszaRata?.kapitalPercent" aria-valuemin="0" aria-valuemax="100">{{loan.pierwszaRata?.kapital | currency : "PLN"}}</div>
+                    <div class="progress-bar bg-success" role="progressbar" [style.width.%]="loan.pierwszaRata?.kapitalPercent" aria-valuenow="loan.pierwszaRata?.kapitalPercent" aria-valuemin="0" aria-valuemax="100">{{loan.pierwszaRata?.kapital | currency : "PLN"}}</div>
                     <div class="progress-bar bg-danger" role="progressbar" [style.width.%]="loan.pierwszaRata?.odsetkiPercent" aria-valuenow="loan.pierwszaRata?.odsetkiPercent" aria-valuemin="0" aria-valuemax="100">{{loan.pierwszaRata?.odsetki | currency : "PLN"}}</div>
                 </div>
                 <div class="row">
