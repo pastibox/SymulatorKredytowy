@@ -79,3 +79,22 @@ mat-radio-button
     background: rgb(23 177 3 / 21%);
 }
 
+.center-numeric {
+    margin: auto;
+    width: 50%;
+    width: 200px;
+  }
+
+  .slider-numbers
+  {
+      height: 20px;
+      margin-top: -20px;
+  }
+  .parameter-label
+  {
+      color: purple;
+     margin-bottom: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 24px;
+  }

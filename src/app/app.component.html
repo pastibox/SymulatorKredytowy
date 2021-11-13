@@ -5,31 +5,36 @@
     <div class="row">
         <h1>Kalkulator kredytowy</h1>
         <div class="col-md-6">
-            <div class="mt-1">
-                <span class="slider-label">10K</span>
-                <mat-slider thumbLabel [displayWith]="formatAmount" aria-label="units" [min]="10000" [max]="1000000" [step]="10000" style="width:80%;" [(ngModel)]="loanAmount" (ngModelChange)="recalculateLoan()"></mat-slider>
-                <span class="slider-label">1M</span>
+            <div class="parameter-label">Kwota kredytu</div>
+            <div>
+                <mat-slider thumbLabel [displayWith]="formatAmount" aria-label="units" [min]="loanAmountMin" [max]="loanAmountMax" [step]="10000" style="width:100%;" [(ngModel)]="loanAmount"></mat-slider>
+            </div>
+            <div class="slider-numbers">
+                <div class="float-start">10K</div>
+                <div class="float-end">1M</div>
+            </div>
+            <div class="center-numeric">
+                <div class="input-group mb-3">
+                    <button class="btn btn-warning" type="button" (click)="changeAmount(-10000)">-</button>
+                    <input (keypress)="isValidAmount($event)" style="text-align: center;" type="text" class="form-control" [(ngModel)]="loanAmount" >
+                    <button class="btn btn-warning" type="button"(click)="changeAmount(10000)">+</button>
+                  </div>
             </div>
         </div>
-        <div class="col-md-6 d-none d-md-block">
-            <mat-form-field class="example-full-width">
-                <mat-label>Kwota kredytu</mat-label>
-                <input type="number" step="10000" min="10000" max="1000000" matInput [(ngModel)]="loanAmount" (ngModelChange)="recalculateLoan()">
-            </mat-form-field>
-        </div>
+        
     </div>
     <div class="row">
         <div class="col-md-6">
             <div class="mt-1">
                 <span class="slider-label">1</span>
-                <mat-slider thumbLabel [min]="1" [max]="30" [step]="1" style="width: 80%;" [(ngModel)]="loanYears" (ngModelChange)="recalculateLoan()"></mat-slider>
+                <mat-slider thumbLabel [min]="1" [max]="30" [step]="1" style="width: 80%;" [(ngModel)]="loanYears"></mat-slider>
                 <span class="slider-label">30</span>
             </div>
         </div>
         <div class="col-md-6 d-none d-md-block">
             <mat-form-field class="example-full-width">
                 <mat-label>Okres spłaty w latach</mat-label>
-                <input type="number" min="1" max="30" matInput [(ngModel)]="loanYears" (ngModelChange)="recalculateLoan()">
+                <input type="number" min="1" max="30" matInput [(ngModel)]="loanYears">
             </mat-form-field>
         </div>
     </div>
@@ -38,14 +43,14 @@
         <div class="col-md-6">
             <div class="mt-1">
                 <span class="slider-label">0.1%</span>
-                <mat-slider thumbLabel [displayWith]="formatIntersetRate" [min]="0.10" [max]="30" [step]="0.01" style="width: 80%;" [(ngModel)]="interestRate" (ngModelChange)="recalculateLoan()"></mat-slider>
+                <mat-slider thumbLabel [displayWith]="formatIntersetRate" [min]="0.10" [max]="30" [step]="0.01" style="width: 80%;" [(ngModel)]="interestRate"></mat-slider>
                 <span class="slider-label">30%</span>
             </div>
         </div>
         <div class="col-md-6 d-none d-md-block">
             <mat-form-field class="example-full-width">
                 <mat-label>Oprocentowanie (WIBOR + marża)</mat-label>
-                <input type="number" min="0.0" step="0.1" max="30" matInput [(ngModel)]="interestRate" (ngModelChange)="recalculateLoan()">
+                <input type="number" min="0.0" step="0.1" max="30" matInput [(ngModel)]="interestRate">
             </mat-form-field>
         </div>
     </div>
