@@ -5,54 +5,64 @@
     <div class="row">
         <h1>Kalkulator kredytowy</h1>
         <div class="col-md-6">
-            <div class="parameter-label">Kwota kredytu</div>
             <div>
-                <mat-slider thumbLabel [displayWith]="formatAmount" aria-label="units" [min]="loanAmountMin" [max]="loanAmountMax" [step]="10000" style="width:100%;" [(ngModel)]="loanAmount"></mat-slider>
+                <div class="parameter-label">Kwota kredytu</div>
+                <div>
+                    <mat-slider thumbLabel [displayWith]="formatAmount" aria-label="units" [min]="loanAmountMin" [max]="loanAmountMax" [step]="10000" [(ngModel)]="loanAmount"></mat-slider>
+                </div>
+                <div class="slider-numbers">
+                    <div class="float-start">10K</div>
+                    <div class="float-end">1M</div>
+                </div>
+                <div class="center-numeric">
+                    <div class="input-group mb-3">
+                        <button class="btn btn-warning" type="button" (click)="changeAmount(-10000)">-</button>
+                        <input (keypress)="isValidAmount($event)" type="text" class="form-control" [(ngModel)]="loanAmount" >
+                        <span class="input-group-text">PLN</span>
+                        <button class="btn btn-warning" type="button"(click)="changeAmount(10000)">+</button>
+                      </div>
+                </div>
             </div>
-            <div class="slider-numbers">
-                <div class="float-start">10K</div>
-                <div class="float-end">1M</div>
+            <div>
+                <div class="parameter-label">Okres spłaty w latach</div>
+                <div>
+                    <mat-slider thumbLabel [min]="1" [max]="30" [step]="1" [(ngModel)]="loanYears"></mat-slider>
+                </div>
+                <div class="slider-numbers">
+                    <div class="float-start">1</div>
+                    <div class="float-end">30</div>
+                </div>
+                <div class="center-numeric">
+                    <div class="input-group mb-3">
+                        <button class="btn btn-warning" type="button" (click)="changeYears(-1)">-</button>
+                        <input (keypress)="isValidYear($event)" type="text" class="form-control" [(ngModel)]="loanYears" >
+                        <span class="input-group-text">lat</span>
+                        <button class="btn btn-warning" type="button"(click)="changeYears(1)">+</button>
+                      </div>
+                </div>
             </div>
-            <div class="center-numeric">
-                <div class="input-group mb-3">
-                    <button class="btn btn-warning" type="button" (click)="changeAmount(-10000)">-</button>
-                    <input (keypress)="isValidAmount($event)" style="text-align: center;" type="text" class="form-control" [(ngModel)]="loanAmount" >
-                    <button class="btn btn-warning" type="button"(click)="changeAmount(10000)">+</button>
-                  </div>
+
+            <div>
+                <div class="parameter-label">Oprocentowanie (WIBOR + marża)</div>
+                <div>
+                    <mat-slider thumbLabel [displayWith]="formatIntersetRate" [min]="0" [max]="30" [step]="0.05" [(ngModel)]="interestRate"></mat-slider>
+                </div>
+                <div class="slider-numbers">
+                    <div class="float-start">0%</div>
+                    <div class="float-end">30%</div>
+                </div>
+                <div class="center-numeric">
+                    <div class="input-group mb-3">
+                        <button class="btn btn-warning" type="button" (click)="changePercent(-0.05)">-</button>
+                        <input (keypress)="isValidPercent($event)" (change)="changePercentInput($event)" type="text" class="form-control" value="{{ interestRate | number :'1.2-2' }}" >
+                        <span class="input-group-text">%</span>
+                        <button class="btn btn-warning" type="button"(click)="changePercent(0.05)">+</button>
+                      </div>
+                </div>
             </div>
+
         </div>
         
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="mt-1">
-                <span class="slider-label">1</span>
-                <mat-slider thumbLabel [min]="1" [max]="30" [step]="1" style="width: 80%;" [(ngModel)]="loanYears"></mat-slider>
-                <span class="slider-label">30</span>
-            </div>
-        </div>
-        <div class="col-md-6 d-none d-md-block">
-            <mat-form-field class="example-full-width">
-                <mat-label>Okres spłaty w latach</mat-label>
-                <input type="number" min="1" max="30" matInput [(ngModel)]="loanYears">
-            </mat-form-field>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-6">
-            <div class="mt-1">
-                <span class="slider-label">0.1%</span>
-                <mat-slider thumbLabel [displayWith]="formatIntersetRate" [min]="0.10" [max]="30" [step]="0.01" style="width: 80%;" [(ngModel)]="interestRate"></mat-slider>
-                <span class="slider-label">30%</span>
-            </div>
-        </div>
-        <div class="col-md-6 d-none d-md-block">
-            <mat-form-field class="example-full-width">
-                <mat-label>Oprocentowanie (WIBOR + marża)</mat-label>
-                <input type="number" min="0.0" step="0.1" max="30" matInput [(ngModel)]="interestRate">
-            </mat-form-field>
-        </div>
     </div>
     <div class="row summary-parameters">
         <div class="col-md-5">
@@ -63,7 +73,7 @@
                 Okres spłaty w latach : <b>{{loanYears }}</b>
             </p>
             <p class="center2" style="font-size: 23px;">
-                Oprocentowanie (WIBOR + marża) : <b>{{interestRate}} %</b>
+                Oprocentowanie (WIBOR + marża) : <b>{{interestRate | number :'1.2-2'}} %</b>
             </p>
         </div>
     </div>

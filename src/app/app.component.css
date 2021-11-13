@@ -82,7 +82,20 @@ mat-radio-button
 .center-numeric {
     margin: auto;
     width: 50%;
-    width: 200px;
+    width: 300px;
+  }
+
+  .center-numeric input{
+    text-align: center;
+  }
+
+
+  .center-numeric .input-group-text
+  {
+      background: white;
+      font-size: 12px;
+      min-width: 40px;
+      text-align: center;
   }
 
   .slider-numbers
@@ -96,5 +109,22 @@ mat-radio-button
      margin-bottom: 6px;
     font-size: 15px;
     font-weight: 500;
-    line-height: 24px;
+  }
+
+  mat-slider
+  {
+      width: 100%;
+  }
+
+  .btn-warning
+  {
+      background-color: purple;
+      color: white;
+      border-color: purple;
+      
+  }
+
+  .btn-warning:hover,.btn-warning:focus
+  {
+    box-shadow: 0 0 0 0.25rem rgb(142 0 159 / 28%);
   }
