@@ -2,8 +2,9 @@
 
 <br>
 <div class="container-xxl">
+    <h1>Kalkulator kredytowy</h1>
     <div class="row">
-        <h1>Kalkulator kredytowy</h1>
+        
         <div class="col-md-6">
             <div>
                 <div class="parameter-label">Kwota kredytu</div>
@@ -62,35 +63,34 @@
             </div>
 
         </div>
+        <div class="col-md-6">
+            <div class="summary-parameters">
+                <div>
+                    <p class="center" style="font-size: 30px;">Kwota kredytu : <b>{{loanAmount | currency : "PLN"}}</b></p>
+                </div>
+                <div>
+                    Okres spłaty w latach : <b style="font-size: 24px;">{{loanYears }}</b>
+                </div>
+                <div>
+                    Oprocentowanie (WIBOR + marża) : <b style="font-size: 24px;">{{interestRate | number :'1.2-2'}} %</b>
+                </div>
+            </div>
+            <div class="summary">
+                <div>
+                    <p class="center" style="font-size: 30px;">Rata miesięczna : <b>{{loan.monthlyPayment | currency : "PLN"}}</b></p>
+                </div>
+                <div style="line-height: 30px;">
+                    Odsetki suma : <b style="font-size: 24px;">{{loan.odsetkiSuma | currency : "PLN" }}</b>
+                </div>
+                <div style="line-height: 30px;">
+                    Spłata razem  :&nbsp; <b style="font-size: 24px;">{{loan.splataRazem | currency : "PLN"}}</b>
+                </div>
+            </div>
+
+        </div>
         
     </div>
-    <div class="row summary-parameters">
-        <div class="col-md-5">
-            <p class="center" style="font-size: 30px;">Kwota kredytu : <b>{{loanAmount | currency : "PLN"}}</b></p>
-        </div>
-        <div class="col-md-7">
-            <p class="center2" style="font-size: 23px;">
-                Okres spłaty w latach : <b>{{loanYears }}</b>
-            </p>
-            <p class="center2" style="font-size: 23px;">
-                Oprocentowanie (WIBOR + marża) : <b>{{interestRate | number :'1.2-2'}} %</b>
-            </p>
-        </div>
-    </div>
-    <div class="row summary">
-        <div class="col-md-5">
-            <p class="center" style="font-size: 30px;">Rata miesięczna : <b>{{loan.monthlyPayment | currency : "PLN"}}</b></p>
-        </div>
-        <div class="col-md-7">
-            <p class="center2" style="font-size: 23px;">
-                Odsetki suma : <b>{{loan.odsetkiSuma | currency : "PLN" }}</b>
-            </p>
-            <p class="center2" style="font-size: 23px;">
-                Spłata razem  :&nbsp; <b>{{loan.splataRazem | currency : "PLN"}}</b>
-            </p>
-        </div>
-    </div>
-
+    <hr class="d-none d-md-block">
     <br>
     <mat-tab-group>
         <mat-tab label="Symulacja zmiany stóp procentowych">
