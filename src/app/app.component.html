@@ -126,7 +126,7 @@
                     <div>
                         <div class="float-start summary-box">
 
-                            <h1>Piersza Rata</h1>
+                            <h1>Rata kredytu</h1>
                             <div style="font-size: 37px; margin-bottom: 5px;" class="summary-value">
                                 {{loan.pierwszaRata?.rataKredytu | currency : "PLN"}}
                             </div>
@@ -173,7 +173,7 @@
             <div>
                 <br>
                 <br>
-                <div style="font-size: 30px; color: #393939; font-weight: 400;" class="parameter-label">Symulacja spłaty kapitału</div>
+                <div style="font-size: 26px; color: #393939; font-weight: 400;" class="parameter-label">Symulacja spłaty kapitału</div>
                 <br>
                 <div>
                     <mat-slider thumbLabel [min]="1" [max]="loan.months" [step]="1" [(ngModel)]="symulacjaAktualnyMiesiac"></mat-slider>
@@ -197,7 +197,7 @@
                     <div>
                         <div class="float-start summary-box">
 
-                            <h1>Rata</h1>
+                            <h1>Rata kredytu</h1>
                             <div style="font-size: 37px; margin-bottom: 5px;" class="summary-value">
                                 {{symulacjaAktualnyMiesiacObjekt.rataKredytu | currency : "PLN"}}
                             </div>
@@ -254,9 +254,9 @@
                     <div class="float-start summary-box">
 
                         <h2>Kapitał do spłaty</h2>
-                        <div style="font-size: 37px; margin-bottom: 5px;" class="summary-value">
+                        <div class="summary-value">
                             {{symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala | currency : "PLN" }}
-                            <span style="font-size: 24px;font-weight: 300; opacity: 0.7;">({{symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala / loanAmount | percent :'2.2-2'}})</span>
+                            <span style="font-weight: 300; opacity: 0.7;">({{symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala / loanAmount | percent :'2.2-2'}})</span>
                         </div>
                     </div>
                     
