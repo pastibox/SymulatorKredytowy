@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Loan } from './model/loan';
+import { Loan, RataMiesieczna } from './model/loan';
 
 @Component({
     selector: 'app-root',
@@ -48,6 +48,20 @@ export class AppComponent implements OnInit {
     loan: Loan;
 
     symulacja: Loan[] = [];
+
+    symulacjaAktualnyMiesiac : number = 1;
+    get symulacjaAktualnyRok(): number {
+        return Math.ceil(this.symulacjaAktualnyMiesiac / 12);
+    }
+
+    get symulacjaAktualnyMiesiacObjekt(): RataMiesieczna {
+        return this.loan.harmonogram[this.symulacjaAktualnyMiesiac - 1];
+    }
+
+    get symulacjaZaplaconeOdsetki(): number {
+        const since1toCurrent = this.loan.harmonogram.slice(0, this.symulacjaAktualnyMiesiac);
+        return since1toCurrent.map(o=> o.odsetki).reduce((a,c)=>a + c);;
+    }
 
     displayedColumns: string[] = ['miesiac', 'kwota', 'odsetki', 'kapital'];
 
@@ -125,6 +139,7 @@ export class AppComponent implements OnInit {
     recalculateLoan(loanAmount:number, loanYears:number, interestRate:number) {
         this.appendAQueryParam();
         this.symulacja = [];
+        this.symulacjaAktualnyMiesiac = 1;
         this.loan = new Loan(loanAmount, loanYears * 12, interestRate);
 
         let rates: number[] = [];
@@ -322,6 +337,42 @@ export class AppComponent implements OnInit {
         }
        
         val.target.value = this.interestRate;
+    }
+
+
+    changeSimulationMonth(changedMonth: number): void {
+        this.symulacjaAktualnyMiesiac = this.symulacjaAktualnyMiesiac + changedMonth;
+
+        if (this.symulacjaAktualnyMiesiac < 1) {
+            this.symulacjaAktualnyMiesiac = 1;
+        }
+
+        if (this.symulacjaAktualnyMiesiac > this.loan.months) {
+            this.symulacjaAktualnyMiesiac = this.loan.months;
+        }
+    }
+
+    changeSimulationMonthInput(val:any)
+    {
+        let changedValue = +(val.target.value);
+
+        if(!Number.isNaN(changedValue))
+        {
+            if(changedValue >= 1 && changedValue <= this.loan.months)
+            {
+                this.symulacjaAktualnyMiesiac = changedValue;
+            }
+            else if(changedValue < 1)
+            {
+                this.symulacjaAktualnyMiesiac = 1;
+            }
+            else if(changedValue > this.loan.months)
+            {
+                this.symulacjaAktualnyMiesiac = this.loan.months;
+            } 
+        }
+       
+        val.target.value = this.symulacjaAktualnyMiesiac;
     }
 
 }

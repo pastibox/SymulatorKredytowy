@@ -124,8 +124,8 @@
                 <br>
                 <div>
                     <div class="progress-labels">
-                        <div class="float-start">KAPITAŁ : {{loan.pierwszaRata?.kapitalPercentReal?.toFixed(2)}} %</div>
-                        <div class="float-end">ODSETKI : {{loan.pierwszaRata?.odsetkiPercentReal?.toFixed(2)}} %</div>
+                        <div class="float-start">RATA KAPITAŁ : {{loan.pierwszaRata?.kapitalPercentReal?.toFixed(2)}} %</div>
+                        <div class="float-end">RATA ODSETKI : {{loan.pierwszaRata?.odsetkiPercentReal?.toFixed(2)}} %</div>
                         <div class="clearfix"></div>
                     </div>
                 </div>
@@ -156,7 +156,98 @@
 
                     </div>
                 </div>
+            </div>
+            <div>
                 <br>
+                <br>
+                <div style="font-size: 20px;" class="parameter-label">Symulacja spłaty kapitału</div>
+                <div>
+                    <mat-slider thumbLabel [min]="1" [max]="loan.months" [step]="1" [(ngModel)]="symulacjaAktualnyMiesiac"></mat-slider>
+                </div>
+                <div class="slider-numbers">
+                    <div class="float-start">1</div>
+                    <div class="float-end">{{loan.months}}</div>
+                </div>
+                <div class="center-numeric">
+                    <div class="input-group mb-3">
+                        <button class="btn btn-warning" type="button" (click)="changeSimulationMonth(-1)">-</button>
+                        <input (keypress)="isValidInt($event)" type="text" class="form-control" (change)="changeSimulationMonthInput($event)" value="{{ symulacjaAktualnyMiesiac| number :'1.0' }}">
+                        <span class="input-group-text">miesiąc</span>
+                        <button class="btn btn-warning" type="button" (click)="changeSimulationMonth(1)">+</button>
+                        <span class="input-group-text"> Rok : {{symulacjaAktualnyRok}}</span>
+                       
+                    </div>
+                </div>
+                <br>
+                <div class="summary summary-calculation">
+                    <div>
+                       
+                        <div class="float-start summary-box">
+
+                            <h1>Miesiąc spłaty</h1>
+                            <div style="font-size: 37px; margin-bottom: 5px;" class="summary-value">
+                                {{symulacjaAktualnyMiesiac}}
+                            </div>
+
+                        </div>
+                        <div class="float-start summary-box">
+
+                            <h1>Rok spłaty</h1>
+                            <div style="font-size: 37px; margin-bottom: 5px;" class="summary-value">
+                                {{symulacjaAktualnyRok}}
+                            </div>
+
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <br>
+                     <div class="summary-box">
+
+                            <h2>Rata miesięczna</h2>
+                            <div class="summary-value">
+                                {{loan.monthlyPayment | currency : "PLN"}}
+                            </div>
+
+                        </div>
+                        <br>
+                    <div>
+                        <div class="progress-labels">
+                            <div class="float-start">RATA KAPITAŁ : {{symulacjaAktualnyMiesiacObjekt.kapitalPercentReal?.toFixed(2)}} %</div>
+                            <div class="float-end">RATA ODSETKI : {{symulacjaAktualnyMiesiacObjekt.odsetkiPercentReal?.toFixed(2)}} %</div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" [style.width.%]="symulacjaAktualnyMiesiacObjekt.kapitalPercent" aria-valuenow="symulacjaAktualnyMiesiacObjekt.kapitalPercent" aria-valuemin="0" aria-valuemax="100">{{symulacjaAktualnyMiesiacObjekt.kapital | currency : "PLN"}}</div>
+                        <div class="progress-bar bg-danger" role="progressbar" [style.width.%]="symulacjaAktualnyMiesiacObjekt.odsetkiPercent" aria-valuenow="symulacjaAktualnyMiesiacObjekt.odsetkiPercent" aria-valuemin="0" aria-valuemax="100">{{symulacjaAktualnyMiesiacObjekt.odsetki | currency : "PLN"}}</div>
+                    </div>
+                    <div class="float-start summary-box">
+
+                        <h2>Zapłacone odsetki</h2>
+                        <div class="summary-value">
+                            {{symulacjaZaplaconeOdsetki | currency : "PLN" }}
+                        </div>
+                    </div>
+                    <div class="float-start summary-box">
+
+                        <h2>Kapitał spłacony</h2>
+                        <div class="summary-value">
+                            {{(  loanAmount - symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala) | currency : "PLN" }}
+                            ({{ (loanAmount - symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala) / loanAmount | percent :'2.2-2'}})
+                        </div>
+                    </div>
+                    <div class="float-start summary-box">
+
+                        <h2>Kapitał do spłaty</h2>
+                        <div style="font-size: 37px; margin-bottom: 5px;" class="summary-value">
+                            {{symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala | currency : "PLN" }}
+                            ({{symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala / loanAmount | percent :'2.2-2'}})
+                        </div>
+                    </div>
+                    
+                    <div class="clearfix"></div>
+                </div>
+
             </div>
 
         </div>
@@ -271,7 +362,7 @@
 
                     <!-- Name Column -->
                     <ng-container matColumnDef="kwota">
-                        <th mat-header-cell *matHeaderCellDef> Kwota do spłaty</th>
+                        <th mat-header-cell *matHeaderCellDef> Kapitał do spłaty</th>
                         <td mat-cell *matCellDef="let element"> {{element.kwotaKredytu | currency : "PLN"}} </td>
                     </ng-container>
 
