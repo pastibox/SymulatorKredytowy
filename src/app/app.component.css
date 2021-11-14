@@ -208,3 +208,16 @@ mat-radio-button
     top: -45px;
     right: -18px;
   }
+
+  .btn-outline-warning
+  {
+    border-color : gray;
+    color: gray;
+  }
+  
+  .btn-outline-warning:hover
+  {
+      background: white;
+      border-color : purple;
+      color: purple;
+  }

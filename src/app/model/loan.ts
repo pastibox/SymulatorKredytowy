@@ -1,3 +1,5 @@
+import { LoanType } from './type';
+
 export class Loan {
 
     current:boolean = false;
@@ -155,7 +157,7 @@ export class Loan {
 
     //http://www.drewslair.com/wp-content/uploads/2018/04/Mortgage.jpg
 
-    constructor(public amount: number, public months:number, public interestRate:number, private baseLoan: Loan | null = null) {
+    constructor(public loanType: LoanType, public amount: number, public months:number, public interestRate:number, private baseLoan: Loan | null = null) {
         this.recalculate();
     }
 
@@ -166,25 +168,51 @@ export class Loan {
 
     recalculate()
     {
-        const top = this.monthlyInterest * Math.pow(1+ this.monthlyInterest, this.months);
-        const bottom = Math.pow(1+ this.monthlyInterest, this.months) - 1;
-        this.monthlyPayment = +(this.amount * (top/bottom));
-
-
         this.harmonogram = [];
 
-        let pozostalaKwota = this.amount;
-        let rata = null;
+        if(this.loanType == LoanType.Constant)
+        {
+            const top = this.monthlyInterest * Math.pow(1+ this.monthlyInterest, this.months);
+            const bottom = Math.pow(1+ this.monthlyInterest, this.months) - 1;
+            this.monthlyPayment = +(this.amount * (top/bottom));
 
-        for (let i = 1; i <= this.months; i++) {
+            let pozostalaKwota = this.amount;
+            let rata = null;
 
-            if(rata)
-            {
-                pozostalaKwota = rata.kwotaKredytuPozostala;
+            for (let i = 1; i <= this.months; i++) {
+
+                if(rata)
+                {
+                    pozostalaKwota = rata.kwotaKredytuPozostala;
+                }
+
+                rata = new RataMiesieczna();
+                rata.obliczRataStala(i, pozostalaKwota, this.interestRate, this.monthlyPayment);
+                this.harmonogram.push(rata);
             }
+        }
+        else if(this.loanType == LoanType.Decreasing)
+        {
+                const kapital = this.amount / this.months;
+                const secondPart = 1 + (this.months - 1 + 1) * this.monthlyInterest
+                this.monthlyPayment = kapital * secondPart;
 
-            rata = new RataMiesieczna(i, pozostalaKwota, this.interestRate, this.monthlyPayment);
-            this.harmonogram.push(rata);
+
+                let pozostalaKwota = this.amount;
+                let rata = null;
+    
+                for (let i = 1; i <= this.months; i++) {
+    
+                    if(rata)
+                    {
+                        pozostalaKwota = rata.kwotaKredytuPozostala;
+                    }
+
+                    rata = new RataMiesieczna();
+                    rata.obliczRataMalejaca(i, this.amount, this.months,this.interestRate, pozostalaKwota);
+
+                    this.harmonogram.push(rata);
+                }
         }
 
         this.odsetkiSuma = this.harmonogram.map(o=> o.odsetki).reduce((a,c)=>a + c);
@@ -202,6 +230,7 @@ export class Loan {
 
 export class RataMiesieczna {
 
+        numerMiesiaca:number = 0;
         odsetki:number = 0;
         kapital:number = 0;
         kwotaKredytu :number = 0;
@@ -235,13 +264,25 @@ export class RataMiesieczna {
         get odsetkiPercentReal(): number {
             return 100-this.kapitalPercentReal;
         }
-       
-        constructor(public numerMiesiaca:number, pozostalaKwota: number, oprocentowanie:number, rataKredytu:number) {
-            
-           this.kwotaKredytu = pozostalaKwota;
-           this.odsetki = pozostalaKwota * (oprocentowanie * 0.01 / 12);
-           this.kapital = rataKredytu - this.odsetki;
-           this.kwotaKredytuPozostala = pozostalaKwota - this.kapital;
-           this.rataKredytu = rataKredytu;
+        
+        obliczRataStala(numerMiesiaca:number, pozostalaKwota: number, oprocentowanie:number, rataKredytu:number)
+        {
+            this.numerMiesiaca = numerMiesiaca;
+            this.kwotaKredytu = pozostalaKwota;
+            this.odsetki = pozostalaKwota * (oprocentowanie * 0.01 / 12);
+            this.kapital = rataKredytu - this.odsetki;
+            this.kwotaKredytuPozostala = pozostalaKwota - this.kapital;
+            this.rataKredytu = rataKredytu;
+        }
+
+        obliczRataMalejaca(numerMiesiaca:number, kwotaKredytu:number, iloscMiesiecy:number, oprocentowanie:number, pozostalaKwota: number)
+        {
+            this.numerMiesiaca = numerMiesiaca;
+            this.kapital = kwotaKredytu / iloscMiesiecy;
+            this.kwotaKredytu = kwotaKredytu;
+            const secondPart = 1 + (iloscMiesiecy - numerMiesiaca + 1) * (oprocentowanie * 0.01 / 12)
+            this.rataKredytu = this.kapital * secondPart;
+            this.odsetki = this.rataKredytu - this.kapital;
+            this.kwotaKredytuPozostala = pozostalaKwota - this.kapital;
         }
 }

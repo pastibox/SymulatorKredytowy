@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Loan, RataMiesieczna } from './model/loan';
+import { LoanType } from './model/type';
 
 @Component({
     selector: 'app-root',
@@ -10,9 +11,32 @@ import { Loan, RataMiesieczna } from './model/loan';
 export class AppComponent implements OnInit {
 
     timeout: any;
+    _type:string = "stałe";
     _loanAmount: number = 400000;
     loanAmountMax: number = 1000000;
     loanAmountMin: number = 10000;
+
+    get type(): string {
+        return this._type;
+    }
+    set type(value: string) {
+        this._type = value;
+        this.startRecalculate();
+    }
+
+    get loanType(): LoanType {
+        if(this.type == "stałe")
+        {
+            return LoanType.Constant;
+        }
+
+        if(this.type == "malejące")
+        {
+            return LoanType.Decreasing;
+        }
+
+        return LoanType.None;
+    }
 
     get loanAmount(): number {
         return this._loanAmount;
@@ -68,7 +92,7 @@ export class AppComponent implements OnInit {
     simulationDisplayedColumns: string[] = ['stopaProcentowa', 'rata', 'rataOdsetki', 'rataKapital', '10odsetki', '10kapital', 'odsetkiSuma', 'calyKoszt'];
 
     constructor(private router: Router, private activatedRoute: ActivatedRoute) {
-        this.loan = new Loan(this.loanAmount, this.loanYears * 12, this.interestRate);
+        this.loan = new Loan(this.loanType, this.loanAmount, this.loanYears * 12, this.interestRate);
     }
 
     ngOnInit(): void {
@@ -78,6 +102,7 @@ export class AppComponent implements OnInit {
             const kwota: string | null = this.activatedRoute.snapshot.queryParamMap.get('kwota');
             const okres: string | null = this.activatedRoute.snapshot.queryParamMap.get('okres');
             const oprocentowanie: string | null= this.activatedRoute.snapshot.queryParamMap.get('oprocentowanie');
+            const typRat: string | null= this.activatedRoute.snapshot.queryParamMap.get('typRat');
 
             if(kwota && !Number.isNaN(kwota))
             {
@@ -94,6 +119,11 @@ export class AppComponent implements OnInit {
                 this.interestRate = +(oprocentowanie)
             }
 
+            if(typRat && (typRat == 'stałe' || typRat == 'malejące'))
+            {
+                this.type = typRat;
+            }
+
             this.recalculateLoan(this.loanAmount, this.loanYears, this.interestRate);
 
           });
@@ -106,7 +136,8 @@ export class AppComponent implements OnInit {
            queryParams: {
               kwota: this.loanAmount,
               okres: this.loanYears,
-              oprocentowanie: this.interestRate
+              oprocentowanie: this.interestRate,
+              typRat: this.type
            },
            queryParamsHandling: "merge",
            preserveFragment: true
@@ -140,7 +171,7 @@ export class AppComponent implements OnInit {
         this.appendAQueryParam();
         this.symulacja = [];
         this.symulacjaAktualnyMiesiac = 1;
-        this.loan = new Loan(loanAmount, loanYears * 12, interestRate);
+        this.loan = new Loan(this.loanType,loanAmount, loanYears * 12, interestRate);
 
         let rates: number[] = [];
 
@@ -195,7 +226,7 @@ export class AppComponent implements OnInit {
         });
 
         unique.forEach((rate) => {
-            let loan = new Loan(this.loanAmount, this.loanYears * 12, rate, this.loan);
+            let loan = new Loan(this.loanType, this.loanAmount, this.loanYears * 12, rate, this.loan);
 
             if (rate == this.interestRate) {
                 loan.current = true;
