@@ -233,7 +233,7 @@
                         <h2>Kapitał spłacony</h2>
                         <div class="summary-value">
                             {{(  loanAmount - symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala) | currency : "PLN" }}
-                            ({{ (loanAmount - symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala) / loanAmount | percent :'2.2-2'}})
+                            <span style="font-size: 24px;opacity: 0.7;">({{ (loanAmount - symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala) / loanAmount | percent :'2.2-2'}})</span>
                         </div>
                     </div>
                     <div class="float-start summary-box">
@@ -241,7 +241,7 @@
                         <h2>Kapitał do spłaty</h2>
                         <div style="font-size: 37px; margin-bottom: 5px;" class="summary-value">
                             {{symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala | currency : "PLN" }}
-                            ({{symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala / loanAmount | percent :'2.2-2'}})
+                            <span style="font-size: 24px;opacity: 0.7;">({{symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala / loanAmount | percent :'2.2-2'}})</span>
                         </div>
                     </div>
                     
