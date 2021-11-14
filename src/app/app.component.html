@@ -75,6 +75,19 @@
                 </div>
                 <br>
             </div>
+            <br>
+            <div class="dict-text d-none d-lg-block" style="text-align: justify;">
+                <p>
+                    <strong>Oprocentowanie kredytów hipotecznych</strong> - jest pochodną stopy procentowej ustalanej przez przed Radę Polityki Pieniężnej oraz marży banków. Banki mają w&nbsp;ofercie kredyty hipoteczne ze zmiennym, stałym i&nbsp;okresowo stałym oprocentowaniem. Te pierwsze wiążą się z&nbsp;największym ryzykiem, ponieważ jeżeli poziom stawki referencyjnej obniża się lub rośnie, bank odpowiednio przelicza oprocentowanie kredytu. Najbezpieczniejsze są kredyty o stałym oprocentowaniu obowiązującym przez cały czas kredytowania.<br>
+                                <br>
+                                    <strong>Rata kapitałowa</strong> - kapitał pozostały do spłaty. <br>
+                                    <strong>Rata odsetkowa</strong> - są to odsetki od kapitału pozostałego do spłaty.
+                                </p>
+
+                                <p>
+                                    *Zmiana oprocentowania wiąże się ze zmianą stopy WIBOR, która jest powiązana ze stopą referencyjną Narodowego Banku Polskiego. Można zatem z dobrym przybliżeniem powiedzieć, że wzrost stopy referencyjnej NBP przełoży się na podobny wzrost stopy WIBOR, a w konsekwencji wzrost oprocentowania kredytów mieszkaniowych.
+                                </p>
+            </div>
 
         </div>
         <div class="col-md-6">
@@ -160,7 +173,8 @@
             <div>
                 <br>
                 <br>
-                <div style="font-size: 20px;" class="parameter-label">Symulacja spłaty kapitału</div>
+                <div style="font-size: 30px; color: #393939; font-weight: 400;" class="parameter-label">Symulacja spłaty kapitału</div>
+                <br>
                 <div>
                     <mat-slider thumbLabel [min]="1" [max]="loan.months" [step]="1" [(ngModel)]="symulacjaAktualnyMiesiac"></mat-slider>
                 </div>
