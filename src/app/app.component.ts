@@ -87,7 +87,7 @@ export class AppComponent implements OnInit {
         return since1toCurrent.map(o=> o.odsetki).reduce((a,c)=>a + c);;
     }
 
-    displayedColumns: string[] = ['miesiac', 'kwota', 'odsetki', 'kapital'];
+    displayedColumns: string[] = ['miesiac', 'kwota', 'rata', 'kapital' , 'odsetki'];
 
     simulationDisplayedColumns: string[] = ['stopaProcentowa', 'rata', 'rataOdsetki', 'rataKapital', '10odsetki', '10kapital', 'odsetkiSuma', 'calyKoszt'];
 
