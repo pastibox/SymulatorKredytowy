@@ -45,16 +45,24 @@ export class AppComponent implements OnInit {
         this._loanAmount = +value;
         this.startRecalculate();
     }
-    loanYearsMin: number = 1;
-    loanYearsMax: number = 30;
-    _loanYears: number = 30;
+    loanMonthsMin: number = 1;
+    loanMonthsMax: number = 360;
+    _loanMonths: number = 360;
+
+    get loanMonths(): number {
+        return this._loanMonths;
+    }
+    set loanMonths(value: number) {
+        this._loanMonths = +value;
+        this.startRecalculate();
+    }
 
     get loanYears(): number {
-        return this._loanYears;
+        return Math.floor(this.loanMonths / 12);
     }
-    set loanYears(value: number) {
-        this._loanYears = +value;
-        this.startRecalculate();
+
+    get loanYearsRestMonths(): number {
+        return this.loanMonths - (this.loanYears  *12) ;
     }
 
     interestRateMin: number = 0.5;
@@ -92,7 +100,7 @@ export class AppComponent implements OnInit {
     simulationDisplayedColumns: string[] = ['stopaProcentowa', 'rata', 'rataOdsetki', 'rataKapital', '10odsetki', '10kapital', 'odsetkiSuma', 'calyKoszt'];
 
     constructor(private router: Router, private activatedRoute: ActivatedRoute) {
-        this.loan = new Loan(this.loanType, this.loanAmount, this.loanYears * 12, this.interestRate);
+        this.loan = new Loan(this.loanType, this.loanAmount, this.loanMonths, this.interestRate);
     }
 
     ngOnInit(): void {
@@ -111,7 +119,7 @@ export class AppComponent implements OnInit {
 
             if(okres && !Number.isNaN(okres))
             {
-                this.loanYears = +(okres)
+                this.loanMonths = +(okres)
             }
 
             if(oprocentowanie && !Number.isNaN(oprocentowanie))
@@ -124,7 +132,7 @@ export class AppComponent implements OnInit {
                 this.type = typRat;
             }
 
-            this.recalculateLoan(this.loanAmount, this.loanYears, this.interestRate);
+            this.recalculateLoan(this.loanAmount, this.loanMonths, this.interestRate);
 
           });
 
@@ -135,7 +143,7 @@ export class AppComponent implements OnInit {
         const urlTree = this.router.createUrlTree([], {
            queryParams: {
               kwota: this.loanAmount,
-              okres: this.loanYears,
+              okres: this.loanMonths,
               oprocentowanie: this.interestRate,
               typRat: this.type
            },
@@ -148,7 +156,7 @@ export class AppComponent implements OnInit {
 
     startRecalculate() {
         clearTimeout(this.timeout);
-        this.timeout = setTimeout(() => this.recalculateLoan(this.loanAmount, this.loanYears, this.interestRate), 100);
+        this.timeout = setTimeout(() => this.recalculateLoan(this.loanAmount, this.loanMonths, this.interestRate), 100);
     }
 
     formatAmount(loanAmount: number) {
@@ -167,11 +175,11 @@ export class AppComponent implements OnInit {
         return value.toFixed(2).replace('.',',') + '%'
     }
 
-    recalculateLoan(loanAmount:number, loanYears:number, interestRate:number) {
+    recalculateLoan(loanAmount:number, loanMonths:number, interestRate:number) {
         this.appendAQueryParam();
         this.symulacja = [];
         this.symulacjaAktualnyMiesiac = 1;
-        this.loan = new Loan(this.loanType,loanAmount, loanYears * 12, interestRate);
+        this.loan = new Loan(this.loanType,loanAmount, loanMonths, interestRate);
 
         let rates: number[] = [];
 
@@ -226,7 +234,7 @@ export class AppComponent implements OnInit {
         });
 
         unique.forEach((rate) => {
-            let loan = new Loan(this.loanType, this.loanAmount, this.loanYears * 12, rate, this.loan);
+            let loan = new Loan(this.loanType, this.loanAmount, this.loanMonths, rate, this.loan);
 
             if (rate == this.interestRate) {
                 loan.current = true;
@@ -274,39 +282,39 @@ export class AppComponent implements OnInit {
     }
 
 
-    changeYears(changedYears: number): void {
-        this.loanYears = this.loanYears + changedYears;
+    changeMonths(changedMonths: number): void {
+        this.loanMonths = this.loanMonths + changedMonths;
 
-        if (this.loanYears < this.loanYearsMin) {
-            this.loanYears = this.loanYearsMin;
+        if (this.loanMonths < this.loanMonthsMin) {
+            this.loanMonths = this.loanMonthsMin;
         }
 
-        if (this.loanYears > this.loanYearsMax) {
-            this.loanYears = this.loanYearsMax;
+        if (this.loanMonths > this.loanMonthsMax) {
+            this.loanMonths = this.loanMonthsMax;
         }
     }
 
-    changeYearsInput(val:any)
+    changeMonthsInput(val:any)
     {
         let changedValue = +(val.target.value);
 
         if(!Number.isNaN(changedValue))
         {
-            if(changedValue >= this.loanYearsMin && changedValue <= this.loanYearsMax)
+            if(changedValue >= this.loanMonthsMin && changedValue <= this.loanMonthsMax)
             {
-                this.loanYears = changedValue;
+                this.loanMonths = changedValue;
             }
-            else if(changedValue < this.loanYearsMin)
+            else if(changedValue < this.loanMonthsMin)
             {
-                this.loanYears = this.loanYearsMin;
+                this.loanMonths = this.loanMonthsMin;
             }
-            else if(changedValue > this.loanYearsMax)
+            else if(changedValue > this.loanMonthsMax)
             {
-                this.loanYears = this.loanYearsMax;
+                this.loanMonths = this.loanMonthsMax;
             } 
         }
        
-        val.target.value = this.loanYears;
+        val.target.value = this.loanMonths;
     }
 
     isValidInt(event: any): boolean {
