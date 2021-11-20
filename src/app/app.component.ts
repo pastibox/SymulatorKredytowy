@@ -126,8 +126,6 @@ export class AppComponent implements OnInit {
                 this.type = typRat;
             }
 
-            this.recalculateLoan(this.loanAmount, this.loanMonths, this.interestRate);
-
         });
 
     }
