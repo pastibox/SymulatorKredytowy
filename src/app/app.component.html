@@ -37,9 +37,8 @@
                     <div class="input-group mb-3">
                         <button class="btn btn-warning" type="button" (click)="changeMonths(-1)">-</button>
                         <input (keypress)="isValidInt($event)" type="text" class="form-control" (change)="changeMonthsInput($event)" value="{{ loanMonths| number :'1.0' }}">
-                        <span class="input-group-text">miesięcy</span>
-                        <button class="btn btn-warning" type="button" (click)="changeMonths(1)">+</button>
-                        <span class="input-group-text" style="width: 130px;">lat : {{loanYears}} miesięcy: {{loanYearsRestMonths}} </span>
+                        <span class="input-group-text" style="padding: 0px 3px;"><span>miesięcy (lat {{loanYears}}</span><span>&nbsp; mies. {{loanYearsRestMonths}}</span>)</span>
+                        <button class="btn btn-warning" type="button" (click)="changeMonths(1)">+</button>                     
                     </div>
                 </div>
             </div>
