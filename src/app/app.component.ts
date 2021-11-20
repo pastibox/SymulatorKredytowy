@@ -253,13 +253,16 @@ export class AppComponent implements OnInit {
                 
                     for (let amount = 0; amount <= maxAmount; amount += 100) {
 
-                        loan = new Loan(this.loanType, amount, this.loanMonths, rate, this.loan);
+                        loan = new Loan(this.loanType, amount, this.loanMonths, rate, this.loan, true);
 
                         if (loan.pierwszaRata && this.loan.pierwszaRata) {
+
                             let tempPayment = Math.floor(loan.pierwszaRata.rataKredytu);
                             let loanPayment = Math.floor(this.loan.pierwszaRata.rataKredytu);
 
                             if (tempPayment == loanPayment) {
+
+                                loan = new Loan(this.loanType, amount, this.loanMonths, rate, this.loan);
 
                                 maxAmount = loan.amount;
                                 this.symulacja2.push(loan);
