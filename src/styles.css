@@ -33,3 +33,13 @@ table td{
     color: rgb(20, 172, 0);
     background: rgb(23 177 3 / 21%);
 }
+
+.current-row{
+    background: purple;
+    color: white;
+}
+
+.tab-content
+{
+    min-height: 500px;
+}

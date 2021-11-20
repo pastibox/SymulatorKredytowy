@@ -12,13 +12,15 @@ import { registerLocaleData } from '@angular/common';
 import {MatTabsModule} from '@angular/material/tabs';
 import { HarmonogramComponent } from './components/harmonogram/harmonogram.component';
 import { SimulationComponent } from './components/simulation/simulation.component';
+import { SimulationLoanAmountComponent } from './components/simulation-loan-amount/simulation-loan-amount.component';
 registerLocaleData(localePL);
 
 @NgModule({
   declarations: [
     AppComponent,
     HarmonogramComponent,
-    SimulationComponent
+    SimulationComponent,
+    SimulationLoanAmountComponent
   ],
   imports: [
     BrowserModule,

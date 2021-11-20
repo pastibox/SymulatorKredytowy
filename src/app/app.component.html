@@ -270,15 +270,21 @@
     </div>
     <hr class="d-none d-md-block">
     <br>
-    <mat-tab-group>
-        <mat-tab label="Symulacja zmiany stóp procentowych">
-            <div class="tab-content">
-               <app-simulation [symulacja]="symulacja"></app-simulation>
+    <mat-tab-group (selectedTabChange)="tabChanged($event)">
+        <mat-tab label="Symulacja zmiany raty">
+            <div class="tab-content" >
+               <app-simulation *ngIf="isReady" [symulacja]="symulacja"></app-simulation>
             </div>
         </mat-tab>
         <mat-tab label="Harmonogram spłat">
             <div class="tab-content">
-                <app-harmonogram [loan]="loan"></app-harmonogram>
+                <app-harmonogram *ngIf="isReady" [loan]="loan"></app-harmonogram>
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Symulacja zmiany kwoty kredytu">
+            <div class="tab-content">
+                <app-simulation-loan-amount *ngIf="isReady" [symulacja]="symulacja2"></app-simulation-loan-amount>
             </div>
         </mat-tab>
     </mat-tab-group>

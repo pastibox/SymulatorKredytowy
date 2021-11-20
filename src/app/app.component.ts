@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Loan, RataMiesieczna } from './model/loan';
 import { LoanType } from './model/type';
@@ -11,10 +12,12 @@ import { LoanType } from './model/type';
 export class AppComponent implements OnInit {
 
     timeout: any;
-    _type:string = "stałe";
+    _type: string = "stałe";
     _loanAmount: number = 400000;
     loanAmountMax: number = 1000000;
     loanAmountMin: number = 10000;
+    selectedTabIndex = 0;
+    isReady = false;
 
     get type(): string {
         return this._type;
@@ -25,13 +28,11 @@ export class AppComponent implements OnInit {
     }
 
     get loanType(): LoanType {
-        if(this.type == "stałe")
-        {
+        if (this.type == "stałe") {
             return LoanType.Constant;
         }
 
-        if(this.type == "malejące")
-        {
+        if (this.type == "malejące") {
             return LoanType.Decreasing;
         }
 
@@ -62,7 +63,7 @@ export class AppComponent implements OnInit {
     }
 
     get loanYearsRestMonths(): number {
-        return this.loanMonths - (this.loanYears  *12) ;
+        return this.loanMonths - (this.loanYears * 12);
     }
 
     interestRateMin: number = 0.5;
@@ -80,8 +81,9 @@ export class AppComponent implements OnInit {
     loan: Loan;
 
     symulacja: Loan[] = [];
+    symulacja2: Loan[] = [];
 
-    symulacjaAktualnyMiesiac : number = 1;
+    symulacjaAktualnyMiesiac: number = 1;
     get symulacjaAktualnyRok(): number {
         return Math.ceil(this.symulacjaAktualnyMiesiac / 12);
     }
@@ -92,7 +94,7 @@ export class AppComponent implements OnInit {
 
     get symulacjaZaplaconeOdsetki(): number {
         const since1toCurrent = this.loan.harmonogram.slice(0, this.symulacjaAktualnyMiesiac);
-        return since1toCurrent.map(o=> o.odsetki).reduce((a,c)=>a + c);;
+        return since1toCurrent.map(o => o.odsetki).reduce((a, c) => a + c);;
     }
 
     constructor(private router: Router, private activatedRoute: ActivatedRoute) {
@@ -102,53 +104,49 @@ export class AppComponent implements OnInit {
     ngOnInit(): void {
 
         setTimeout(() => {
-            
+
             const kwota: string | null = this.activatedRoute.snapshot.queryParamMap.get('kwota');
             const okres: string | null = this.activatedRoute.snapshot.queryParamMap.get('okres');
-            const oprocentowanie: string | null= this.activatedRoute.snapshot.queryParamMap.get('oprocentowanie');
-            const typRat: string | null= this.activatedRoute.snapshot.queryParamMap.get('typRat');
+            const oprocentowanie: string | null = this.activatedRoute.snapshot.queryParamMap.get('oprocentowanie');
+            const typRat: string | null = this.activatedRoute.snapshot.queryParamMap.get('typRat');
 
-            if(kwota && !Number.isNaN(kwota))
-            {
+            if (kwota && !Number.isNaN(kwota)) {
                 this.loanAmount = +(kwota)
             }
 
-            if(okres && !Number.isNaN(okres))
-            {
+            if (okres && !Number.isNaN(okres)) {
                 this.loanMonths = +(okres)
             }
 
-            if(oprocentowanie && !Number.isNaN(oprocentowanie))
-            {
+            if (oprocentowanie && !Number.isNaN(oprocentowanie)) {
                 this.interestRate = +(oprocentowanie)
             }
 
-            if(typRat && (typRat == 'stałe' || typRat == 'malejące'))
-            {
+            if (typRat && (typRat == 'stałe' || typRat == 'malejące')) {
                 this.type = typRat;
             }
 
             this.recalculateLoan(this.loanAmount, this.loanMonths, this.interestRate);
 
-          });
+        });
 
     }
 
     appendAQueryParam() {
 
         const urlTree = this.router.createUrlTree([], {
-           queryParams: {
-              kwota: this.loanAmount,
-              okres: this.loanMonths,
-              oprocentowanie: this.interestRate,
-              typRat: this.type
-           },
-           queryParamsHandling: "merge",
-           preserveFragment: true
+            queryParams: {
+                kwota: this.loanAmount,
+                okres: this.loanMonths,
+                oprocentowanie: this.interestRate,
+                typRat: this.type
+            },
+            queryParamsHandling: "merge",
+            preserveFragment: true
         });
-     
+
         this.router.navigateByUrl(urlTree);
-     }
+    }
 
     startRecalculate() {
         clearTimeout(this.timeout);
@@ -168,37 +166,37 @@ export class AppComponent implements OnInit {
     }
 
     formatIntersetRate(value: number) {
-        return value.toFixed(2).replace('.',',') + '%'
+        return value.toFixed(2).replace('.', ',') + '%'
     }
 
-    recalculateLoan(loanAmount:number, loanMonths:number, interestRate:number) {
+    recalculateLoan(loanAmount: number, loanMonths: number, interestRate: number) {
+        this.isReady = false;
         this.appendAQueryParam();
         this.symulacja = [];
+        this.symulacja2 = [];
         this.symulacjaAktualnyMiesiac = 1;
-        this.loan = new Loan(this.loanType,loanAmount, loanMonths, interestRate);
+        this.loan = new Loan(this.loanType, loanAmount, loanMonths, interestRate);
 
         let rates: number[] = [];
 
         let tempRate = this.interestRate;
-        
+
         for (let i = 1; i <= 8; i++) {
 
-            tempRate  = tempRate - 0.25;
+            tempRate = tempRate - 0.25;
 
             let rate = +(tempRate.toFixed(2));
-            
-            if(rate > 0)
-            {
+
+            if (rate > 0) {
                 rates.push(rate);
             }
         }
 
-        for (let i = tempRate - 1; i >  0; i--) {
+        for (let i = tempRate - 1; i > 0; i--) {
 
             let rate = +(i.toFixed(2));
 
-            if(rate > 0)
-            {
+            if (rate > 0) {
                 rates.push(rate);
             }
         }
@@ -206,15 +204,14 @@ export class AppComponent implements OnInit {
         tempRate = this.interestRate;
 
         for (let i = 1; i <= 8; i++) {
-            tempRate  = tempRate + 0.25;
+            tempRate = tempRate + 0.25;
 
             let rate = +(tempRate.toFixed(2));
-            
-            if(rate > 0)
-            {
+
+            if (rate > 0) {
                 rates.push(rate);
             }
-        
+
         }
 
         for (let i = tempRate + 1; i <= 20; i++) {
@@ -222,24 +219,62 @@ export class AppComponent implements OnInit {
         }
 
         rates.push(this.interestRate);
-        
+
         let unique = [...new Set(rates)];
 
-        unique.sort(function (a, b) {
+        unique = unique.sort(function (a, b) {
             return a - b;
         });
 
-        unique.forEach((rate) => {
-            let loan = new Loan(this.loanType, this.loanAmount, this.loanMonths, rate, this.loan);
+        if (this.selectedTabIndex == 0) {
 
-            if (rate == this.interestRate) {
-                loan.current = true;
-            }
+            unique.forEach((rate) => {
+                let loan = new Loan(this.loanType, this.loanAmount, this.loanMonths, rate, this.loan);
 
-            this.symulacja.push(loan);
-        });
+                if (rate == this.interestRate) {
+                    loan.current = true;
+                }
 
-        console.log(unique);
+                this.symulacja.push(loan);
+            });
+        }
+
+        if (this.selectedTabIndex == 2) {
+
+            let maxAmount = 1000000; 
+
+            unique.forEach((rate) => {
+
+                let loan = null;
+
+                if (rate == this.interestRate) {
+                    this.loan.current = true;
+                    this.symulacja2.push(this.loan);
+                }
+                else {
+                
+                    for (let amount = 0; amount <= maxAmount; amount += 100) {
+
+                        loan = new Loan(this.loanType, amount, this.loanMonths, rate, this.loan);
+
+                        if (loan.pierwszaRata && this.loan.pierwszaRata) {
+                            let tempPayment = Math.floor(loan.pierwszaRata.rataKredytu);
+                            let loanPayment = Math.floor(this.loan.pierwszaRata.rataKredytu);
+
+                            if (tempPayment == loanPayment) {
+
+                                maxAmount = loan.amount;
+                                this.symulacja2.push(loan);
+
+                                break;
+                            }
+                        }
+                    }
+                }
+
+            });
+        }
+        this.isReady = true;
     }
 
     changeAmount(changedAmount: number): void {
@@ -254,26 +289,21 @@ export class AppComponent implements OnInit {
         }
     }
 
-    changeAmountInput(val:any)
-    {
+    changeAmountInput(val: any) {
         let changedValue = +(val.target.value);
 
-        if(!Number.isNaN(changedValue))
-        {
-            if(changedValue >= this.loanAmountMin && changedValue <= this.loanAmountMax)
-            {
+        if (!Number.isNaN(changedValue)) {
+            if (changedValue >= this.loanAmountMin && changedValue <= this.loanAmountMax) {
                 this.loanAmount = changedValue;
             }
-            else if(changedValue < this.loanAmountMin)
-            {
+            else if (changedValue < this.loanAmountMin) {
                 this.loanAmount = this.loanAmountMin;
             }
-            else if(changedValue > this.loanAmountMax)
-            {
+            else if (changedValue > this.loanAmountMax) {
                 this.loanAmount = this.loanAmountMax;
-            } 
+            }
         }
-       
+
         val.target.value = this.loanAmount;
     }
 
@@ -290,34 +320,28 @@ export class AppComponent implements OnInit {
         }
     }
 
-    changeMonthsInput(val:any)
-    {
+    changeMonthsInput(val: any) {
         let changedValue = +(val.target.value);
 
-        if(!Number.isNaN(changedValue))
-        {
-            if(changedValue >= this.loanMonthsMin && changedValue <= this.loanMonthsMax)
-            {
+        if (!Number.isNaN(changedValue)) {
+            if (changedValue >= this.loanMonthsMin && changedValue <= this.loanMonthsMax) {
                 this.loanMonths = changedValue;
             }
-            else if(changedValue < this.loanMonthsMin)
-            {
+            else if (changedValue < this.loanMonthsMin) {
                 this.loanMonths = this.loanMonthsMin;
             }
-            else if(changedValue > this.loanMonthsMax)
-            {
+            else if (changedValue > this.loanMonthsMax) {
                 this.loanMonths = this.loanMonthsMax;
-            } 
+            }
         }
-       
+
         val.target.value = this.loanMonths;
     }
 
     isValidInt(event: any): boolean {
         const charCode = (event.which) ? event.which : event.keyCode;
-        if(charCode >= 48 && charCode <= 57)
-        {
-            return  true
+        if (charCode >= 48 && charCode <= 57) {
+            return true
         }
 
         return false;
@@ -337,40 +361,34 @@ export class AppComponent implements OnInit {
 
     isValidPercent(event: any): boolean {
         const charCode = (event.which) ? event.which : event.keyCode;
-    
-        if((charCode >= 48 && charCode <= 57) || charCode == 46 || charCode == 44)
-        {
-            return  true
+
+        if ((charCode >= 48 && charCode <= 57) || charCode == 46 || charCode == 44) {
+            return true
         }
 
         return false;
 
     }
 
-    changePercentInput(val:any)
-    {
+    changePercentInput(val: any) {
 
-        val.target.value = val.target.value.replace(',','.');
+        val.target.value = val.target.value.replace(',', '.');
 
         let changedValue = +(val.target.value);
 
 
-        if(!Number.isNaN(changedValue))
-        {
-            if(changedValue >= this.interestRateMin && changedValue <= this.interestRateMax)
-            {
+        if (!Number.isNaN(changedValue)) {
+            if (changedValue >= this.interestRateMin && changedValue <= this.interestRateMax) {
                 this.interestRate = changedValue;
             }
-            else if(changedValue < this.interestRateMin)
-            {
+            else if (changedValue < this.interestRateMin) {
                 this.interestRate = this.interestRateMin;
             }
-            else if(changedValue > this.interestRateMax)
-            {
+            else if (changedValue > this.interestRateMax) {
                 this.interestRate = this.interestRateMax;
-            } 
+            }
         }
-       
+
         val.target.value = this.interestRate;
     }
 
@@ -387,27 +405,28 @@ export class AppComponent implements OnInit {
         }
     }
 
-    changeSimulationMonthInput(val:any)
-    {
+    changeSimulationMonthInput(val: any) {
         let changedValue = +(val.target.value);
 
-        if(!Number.isNaN(changedValue))
-        {
-            if(changedValue >= 1 && changedValue <= this.loan.months)
-            {
+        if (!Number.isNaN(changedValue)) {
+            if (changedValue >= 1 && changedValue <= this.loan.months) {
                 this.symulacjaAktualnyMiesiac = changedValue;
             }
-            else if(changedValue < 1)
-            {
+            else if (changedValue < 1) {
                 this.symulacjaAktualnyMiesiac = 1;
             }
-            else if(changedValue > this.loan.months)
-            {
+            else if (changedValue > this.loan.months) {
                 this.symulacjaAktualnyMiesiac = this.loan.months;
-            } 
+            }
         }
-       
+
         val.target.value = this.symulacjaAktualnyMiesiac;
+    }
+
+    public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
+        this.selectedTabIndex = tabChangeEvent.index;
+        this.isReady = false;
+        this.startRecalculate();
     }
 
 }

@@ -1,5 +1,4 @@
-<h3>Symulacja zmiany raty dla zmian stóp procentowych</h3>
- <!--  <h1>Symulacja zmiany stóp procentowych</h1> -->
+ <h3>Symulacja zmiany kwoty kredytu przy stałej racie dla zmian stóp procentowych</h3>
  <table mat-table [dataSource]="symulacja" class="mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
@@ -15,14 +14,19 @@
             </div>
         </td>
     </ng-container>
-
+    <ng-container matColumnDef="kwota">
+        <th mat-header-cell *matHeaderCellDef> Kwota kredytu</th>
+        <td [ngClass]="{'current-row': element.current}" mat-cell *matCellDef="let element">
+            <span> {{element.amount | currency : "PLN" }}</span>
+            <div *ngIf="!element.current" [ngClass]="{'diff-green': element.amountDiff < 0}">
+                <span class="diff-amount"><span *ngIf="element.amountDiff > 0">+</span>{{element.amountDiff | currency : "PLN"}}</span> <span class="diff-percent"><span *ngIf="element.amountDiffPercent > 0">+</span>{{element.amountDiffPercent | percent}}</span>
+            </div>
+        </td>
+    </ng-container>
     <ng-container matColumnDef="rata">
         <th mat-header-cell *matHeaderCellDef> Rata </th>
         <td [ngClass]="{'current-row': element.current}" mat-cell *matCellDef="let element">
             <span> {{element.monthlyPayment | currency : "PLN" }}</span>
-            <div *ngIf="!element.current" [ngClass]="{'diff-green': element.monthlyPaymentDiff < 0}">
-                <span class="diff-amount"><span *ngIf="element.monthlyPaymentDiff > 0">+</span>{{element.monthlyPaymentDiff | currency : "PLN"}}</span> <span class="diff-percent"><span *ngIf="element.monthlyPaymentDiffPercent > 0">+</span>{{element.monthlyPaymentDiffPercent | percent}}</span>
-            </div>
         </td>
     </ng-container>
 
