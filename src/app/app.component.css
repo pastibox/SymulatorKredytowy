@@ -44,9 +44,7 @@
     padding: 0px 10px;
 }
 
-table td{
-    min-width: 100px;
-}
+
 
 .center {
     padding: 14px 0;
@@ -68,10 +66,7 @@ table td{
     margin: 0px 5px;
 }
 
-.current-row{
-    background: purple;
-    color: white;
-}
+
 mat-radio-button
 {
     margin: 0px 10px;
@@ -82,33 +77,6 @@ mat-radio-button
     padding: 20px;
 }
 
-
-.diff-amount{
-    color: #d90000;
-    font-size: 10px;
-    font-weight: 400;
-}
-
-.diff-percent{
-    font-size: 10px;
-    color: #d90000;
-    background: #ffdcdc;
-    margin-left: 2px;
-    border-radius: 4px;
-    padding: 1px 4px;
-    margin-right: 2px;
-    font-weight: 400;
-
-}
-
-.diff-green .diff-amount{
-    color: rgb(20, 172, 0);
-}
-
-.diff-green .diff-percent{
-    color: rgb(20, 172, 0);
-    background: rgb(23 177 3 / 21%);
-}
 
 .center-numeric {
     margin: auto;

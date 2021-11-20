@@ -10,11 +10,15 @@ import {MatTableModule} from '@angular/material/table';
 import localePL from '@angular/common/locales/pl';
 import { registerLocaleData } from '@angular/common';
 import {MatTabsModule} from '@angular/material/tabs';
+import { HarmonogramComponent } from './components/harmonogram/harmonogram.component';
+import { SimulationComponent } from './components/simulation/simulation.component';
 registerLocaleData(localePL);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HarmonogramComponent,
+    SimulationComponent
   ],
   imports: [
     BrowserModule,
