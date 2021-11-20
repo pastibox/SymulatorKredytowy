@@ -38,7 +38,7 @@
                         <button class="btn btn-warning" type="button" (click)="changeMonths(-1)">-</button>
                         <input (keypress)="isValidInt($event)" type="text" class="form-control" (change)="changeMonthsInput($event)" value="{{ loanMonths| number :'1.0' }}">
                         <span class="input-group-text" style="padding: 0px 3px;"><span>miesięcy (lat {{loanYears}}</span><span>&nbsp; mies. {{loanYearsRestMonths}}</span>)</span>
-                        <button class="btn btn-warning" type="button" (click)="changeMonths(1)">+</button>                     
+                        <button class="btn btn-warning" type="button" (click)="changeMonths(1)">+</button>
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@
                 <div class="parameter-label">Typ raty</div>
                 <div class="center-numeric">
                     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="stałe" [(ngModel)]="type" >
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="stałe" [(ngModel)]="type">
                         <label style="width: 150px;" class="btn btn-outline-warning" for="btnradio1">Raty stałe</label>
 
                         <input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="malejące" [(ngModel)]="type" autocomplete="off">
@@ -79,14 +79,14 @@
             <div class="dict-text d-none d-lg-block" style="text-align: justify;">
                 <p>
                     <strong>Oprocentowanie kredytów hipotecznych</strong> - jest pochodną stopy procentowej ustalanej przez przed Radę Polityki Pieniężnej oraz marży banków. Banki mają w&nbsp;ofercie kredyty hipoteczne ze zmiennym, stałym i&nbsp;okresowo stałym oprocentowaniem. Te pierwsze wiążą się z&nbsp;największym ryzykiem, ponieważ jeżeli poziom stawki referencyjnej obniża się lub rośnie, bank odpowiednio przelicza oprocentowanie kredytu. Najbezpieczniejsze są kredyty o stałym oprocentowaniu obowiązującym przez cały czas kredytowania.<br>
-                                <br>
-                                    <strong>Rata kapitałowa</strong> - kapitał pozostały do spłaty. <br>
-                                    <strong>Rata odsetkowa</strong> - są to odsetki od kapitału pozostałego do spłaty.
-                                </p>
+                    <br>
+                    <strong>Rata kapitałowa</strong> - kapitał pozostały do spłaty. <br>
+                    <strong>Rata odsetkowa</strong> - są to odsetki od kapitału pozostałego do spłaty.
+                </p>
 
-                                <p>
-                                    *Zmiana oprocentowania wiąże się ze zmianą stopy WIBOR, która jest powiązana ze stopą referencyjną Narodowego Banku Polskiego. Można zatem z dobrym przybliżeniem powiedzieć, że wzrost stopy referencyjnej NBP przełoży się na podobny wzrost stopy WIBOR, a w konsekwencji wzrost oprocentowania kredytów mieszkaniowych.
-                                </p>
+                <p>
+                    *Zmiana oprocentowania wiąże się ze zmianą stopy WIBOR, która jest powiązana ze stopą referencyjną Narodowego Banku Polskiego. Można zatem z dobrym przybliżeniem powiedzieć, że wzrost stopy referencyjnej NBP przełoży się na podobny wzrost stopy WIBOR, a w konsekwencji wzrost oprocentowania kredytów mieszkaniowych.
+                </p>
             </div>
 
         </div>
@@ -189,7 +189,7 @@
                         <span class="input-group-text">miesiąc</span>
                         <button class="btn btn-warning" type="button" (click)="changeSimulationMonth(1)">+</button>
                         <span class="input-group-text"> Rok : {{symulacjaAktualnyRok}}</span>
-                       
+
                     </div>
                 </div>
                 <br>
@@ -219,12 +219,12 @@
                             </div>
 
                         </div>
-                        
+
                         <div class="clearfix"></div>
                     </div>
                     <br>
-                    
-                   
+
+
                     <div>
                         <div class="progress-labels">
                             <div class="float-start">RATA KAPITAŁ : {{symulacjaAktualnyMiesiacObjekt.kapitalPercentReal?.toFixed(2)}} %</div>
@@ -247,7 +247,7 @@
 
                         <h2>Kapitał spłacony</h2>
                         <div class="summary-value">
-                            {{(  loanAmount - symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala) | currency : "PLN" }}
+                            {{( loanAmount - symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala) | currency : "PLN" }}
                             <span style="font-size: 24px;font-weight: 300; opacity: 0.7;">({{ (loanAmount - symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala) / loanAmount | percent :'2.2-2'}})</span>
                         </div>
                     </div>
@@ -259,7 +259,7 @@
                             <span style="font-weight: 300; opacity: 0.7;">({{symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala / loanAmount | percent :'2.2-2'}})</span>
                         </div>
                     </div>
-                    
+
                     <div class="clearfix"></div>
                 </div>
 
