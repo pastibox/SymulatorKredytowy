@@ -170,9 +170,6 @@ export class AppComponent implements OnInit {
     }
 
     recalculateLoan(loanAmount: number, loanMonths: number, interestRate: number) {
-
-        console.log('rec-start');
-
         this.isReady = false;
         this.appendAQueryParam();
         this.symulacja = [];
