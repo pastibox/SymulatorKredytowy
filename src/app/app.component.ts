@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
         this.startRecalculate();
     }
     loanMonthsMin: number = 1;
-    loanMonthsMax: number = 360;
+    loanMonthsMax: number = 420;
     _loanMonths: number = 360;
 
     get loanMonths(): number {
