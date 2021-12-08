@@ -150,7 +150,7 @@ export class AppComponent implements OnInit {
 
     startRecalculate() {
         clearTimeout(this.timeout);
-        this.timeout = setTimeout(() => this.recalculateLoan(this.loanAmount, this.loanMonths, this.interestRate), 100);
+        this.timeout = setTimeout(() => this.recalculateLoan(this.loanAmount, this.loanMonths, this.interestRate), 500);
     }
 
     formatAmount(loanAmount: number) {
