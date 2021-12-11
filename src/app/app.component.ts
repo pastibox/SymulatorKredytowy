@@ -66,9 +66,9 @@ export class AppComponent implements OnInit {
         return this.loanMonths - (this.loanYears * 12);
     }
 
-    interestRateMin: number = 0.5;
+    interestRateMin: number = 0.0;
     interestRateMax: number = 30;
-    _interestRate: number = 3.25;
+    _interestRate: number = 2.60;
 
     get interestRate(): number {
         return this._interestRate;
@@ -76,6 +76,29 @@ export class AppComponent implements OnInit {
     set interestRate(value: number) {
         this._interestRate = +value;
         this.startRecalculate();
+    }
+
+    marginMin: number = 0.1;
+    marginMax: number = 10;
+    _margin: number = 2.0;
+
+    get margin(): number {
+        return this._margin;
+    }
+    set margin(value: number) {
+        this._margin = +value;
+        this.startRecalculate();
+    }
+
+    get interest(): number {
+        let temp = this._interestRate + this.margin;
+
+        if(temp < 0)
+        {
+            temp = 0;
+        }
+
+        return temp;
     }
 
     loan: Loan;
@@ -98,7 +121,7 @@ export class AppComponent implements OnInit {
     }
 
     constructor(private router: Router, private activatedRoute: ActivatedRoute) {
-        this.loan = new Loan(this.loanType, this.loanAmount, this.loanMonths, this.interestRate);
+        this.loan = new Loan(this.loanType, this.loanAmount, this.loanMonths, this.interest);
     }
 
     ngOnInit(): void {
@@ -107,7 +130,8 @@ export class AppComponent implements OnInit {
 
             const kwota: string | null = this.activatedRoute.snapshot.queryParamMap.get('kwota');
             const okres: string | null = this.activatedRoute.snapshot.queryParamMap.get('okres');
-            const oprocentowanie: string | null = this.activatedRoute.snapshot.queryParamMap.get('oprocentowanie');
+            const WIBOR: string | null = this.activatedRoute.snapshot.queryParamMap.get('WIBOR');
+            const marza: string | null = this.activatedRoute.snapshot.queryParamMap.get('marża');
             const typRat: string | null = this.activatedRoute.snapshot.queryParamMap.get('typRat');
 
             if (kwota && !Number.isNaN(kwota)) {
@@ -118,8 +142,12 @@ export class AppComponent implements OnInit {
                 this.loanMonths = +(okres)
             }
 
-            if (oprocentowanie && !Number.isNaN(oprocentowanie)) {
-                this.interestRate = +(oprocentowanie)
+            if (WIBOR && !Number.isNaN(WIBOR)) {
+                this.interestRate = +(WIBOR)
+            }
+
+            if (marza && !Number.isNaN(marza)) {
+                this.margin = +(marza)
             }
 
             if (typRat && (typRat == 'stałe' || typRat == 'malejące')) {
@@ -138,7 +166,8 @@ export class AppComponent implements OnInit {
             queryParams: {
                 kwota: this.loanAmount,
                 okres: this.loanMonths,
-                oprocentowanie: this.interestRate,
+                WIBOR: this.interestRate,
+                marża: this.margin,
                 typRat: this.type
             },
             queryParamsHandling: "merge",
@@ -150,7 +179,7 @@ export class AppComponent implements OnInit {
 
     startRecalculate() {
         clearTimeout(this.timeout);
-        this.timeout = setTimeout(() => this.recalculateLoan(this.loanAmount, this.loanMonths, this.interestRate), 500);
+        this.timeout = setTimeout(() => this.recalculateLoan(this.loanAmount, this.loanMonths, this.interest), 500);
     }
 
     formatAmount(loanAmount: number) {
@@ -169,6 +198,10 @@ export class AppComponent implements OnInit {
         return value.toFixed(2).replace('.', ',') + '%'
     }
 
+    formatMarginRate(value: number) {
+        return value.toFixed(2).replace('.', ',') + '%'
+    }
+
     recalculateLoan(loanAmount: number, loanMonths: number, interestRate: number) {
         this.isReady = false;
         this.appendAQueryParam();
@@ -179,7 +212,7 @@ export class AppComponent implements OnInit {
 
         let rates: number[] = [];
 
-        let tempRate = this.interestRate;
+        let tempRate = this.interest;
 
         for (let i = 1; i <= 8; i++) {
 
@@ -201,7 +234,7 @@ export class AppComponent implements OnInit {
             }
         }
 
-        tempRate = this.interestRate;
+        tempRate = this.interest;
 
         for (let i = 1; i <= 8; i++) {
             tempRate = tempRate + 0.25;
@@ -218,7 +251,7 @@ export class AppComponent implements OnInit {
             rates.push(+(i.toFixed(2)));
         }
 
-        rates.push(this.interestRate);
+        rates.push(this.interest);
 
         let unique = [...new Set(rates)];
 
@@ -231,7 +264,7 @@ export class AppComponent implements OnInit {
             unique.forEach((rate) => {
                 let loan = new Loan(this.loanType, this.loanAmount, this.loanMonths, rate, this.loan);
 
-                if (rate == this.interestRate) {
+                if (rate == this.interest) {
                     loan.current = true;
                 }
 
@@ -247,7 +280,7 @@ export class AppComponent implements OnInit {
 
                 let loan = null;
 
-                if (rate == this.interestRate) {
+                if (rate == this.interest) {
                     this.loan.current = true;
                     this.symulacja2.push(this.loan);
                 }
@@ -362,6 +395,18 @@ export class AppComponent implements OnInit {
         }
     }
 
+    changeMargin(changedMargin: number): void {
+        this.margin = +(this.margin + changedMargin).toFixed(2);
+
+        if (this.margin < this.marginMin) {
+            this.margin = this.marginMin;
+        }
+
+        if (this.margin > this.marginMax) {
+            this.margin = this.marginMax;
+        }
+    }
+
     isValidPercent(event: any): boolean {
         const charCode = (event.which) ? event.which : event.keyCode;
 
@@ -393,6 +438,28 @@ export class AppComponent implements OnInit {
         }
 
         val.target.value = this.interestRate;
+    }
+
+    changeMarginInput(val: any) {
+
+        val.target.value = val.target.value.replace(',', '.');
+
+        let changedValue = +(val.target.value);
+
+
+        if (!Number.isNaN(changedValue)) {
+            if (changedValue >= this.marginMin && changedValue <= this.marginMax) {
+                this.margin = changedValue;
+            }
+            else if (changedValue < this.marginMin) {
+                this.margin = this.marginMin;
+            }
+            else if (changedValue > this.marginMax) {
+                this.margin = this.marginMax;
+            }
+        }
+
+        val.target.value = this.margin;
     }
 
 
