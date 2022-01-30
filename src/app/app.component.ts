@@ -326,7 +326,7 @@ export class AppComponent implements OnInit {
     }
 
     changeAmountInput(val: any) {
-        let changedValue = +(val.target.value);
+        let changedValue = +(val.target.value.replace(/\s/g, ''));
 
         if (!Number.isNaN(changedValue)) {
             if (changedValue >= this.loanAmountMin && changedValue <= this.loanAmountMax) {
@@ -357,7 +357,7 @@ export class AppComponent implements OnInit {
     }
 
     changeMonthsInput(val: any) {
-        let changedValue = +(val.target.value);
+        let changedValue = +(val.target.value.replace(/\s/g, ''));
 
         if (!Number.isNaN(changedValue)) {
             if (changedValue >= this.loanMonthsMin && changedValue <= this.loanMonthsMax) {
@@ -420,7 +420,7 @@ export class AppComponent implements OnInit {
 
     changePercentInput(val: any) {
 
-        val.target.value = val.target.value.replace(',', '.');
+        val.target.value = val.target.value.replace(',', '.').replace(/\s/g, '');
 
         let changedValue = +(val.target.value);
 
