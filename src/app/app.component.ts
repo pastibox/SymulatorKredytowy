@@ -68,7 +68,7 @@ export class AppComponent implements OnInit {
 
     interestRateMin: number = 0.0;
     interestRateMax: number = 30;
-    _interestRate: number = 3.23;
+    _interestRate: number = 4.00;
 
     get interestRate(): number {
         return this._interestRate;
