@@ -1,0 +1,154 @@
+<div style="font-size: 26px; color: #393939; font-weight: 400;" class="parameter-label">Porównanie kosztu kredytu z najmem</div>
+<br>
+<div class="row">
+    <div class="col-md-6">
+        <div>
+            <div class="parameter-label">Kwota odstępnego</div>
+            <div class="parameter-label-tooltip">Całkowita kwota wynajmu pomniejszona o czynsz i rachunki.</div>
+            <div>
+                <mat-slider thumbLabel aria-label="units" [min]="rentAmountMin" [max]="rentAmountMax" [step]="10" [(ngModel)]="rentAmount"></mat-slider>
+            </div>
+            <div class="slider-numbers">
+                <div class="float-start">{{rentAmountMin}}</div>
+                <div class="float-end">{{rentAmountMax}}</div>
+            </div>
+            <div class="center-numeric">
+                <div class="input-group mb-3">
+                    <button class="btn btn-warning" type="button" (click)="changeAmount(-100)">-</button>
+                    <input (keypress)="isValidInt($event)" type="text" class="form-control" (change)="changeAmountInput($event)" value="{{ rentAmount| number :'1.0' }}">
+                    <span class="input-group-text">PLN</span>
+                    <button class="btn btn-warning" type="button" (click)="changeAmount(100)">+</button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="parameter-label">Koszt utrzymania nieruchomości</div>
+            <div class="parameter-label-tooltip">
+                Zaliczka na remonty, podatki, wymiana mebli i sprzętu AGD itd. (uśredniona kwota miesięczna). 
+                Koszt płacony przez właściciela.
+            </div>
+            <div>
+                <mat-slider thumbLabel aria-label="units" [min]="costsAmountMin" [max]="costsAmountMax" [step]="10" [(ngModel)]="costsAmount"></mat-slider>
+            </div>
+            <div class="slider-numbers">
+                <div class="float-start">{{costsAmountMin}}</div>
+                <div class="float-end">{{costsAmountMax}}</div>
+            </div>
+            <div class="center-numeric">
+                <div class="input-group mb-3">
+                    <button class="btn btn-warning" type="button" (click)="changeCosts(-10)">-</button>
+                    <input (keypress)="isValidInt($event)" type="text" class="form-control" (change)="changeCostsInput($event)" value="{{ costsAmount| number :'1.0' }}">
+                    <span class="input-group-text">PLN</span>
+                    <button class="btn btn-warning" type="button" (click)="changeCosts(10)">+</button>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="dict-text d-none d-lg-block" style="text-align: justify;">
+            <p>Założenia:</p>
+            <p>
+                * Symulator nie uwzględnia zmian cen nieruchomości oraz kosztów najmu.
+            </p>
+            <p>
+                * Symulator nie uwzględnia zmian oprocentowania kredytu w trakcie spłaty kredytu.
+            </p>
+            <p>
+                * Koszty związane z uruchomieniem kredytu oraz zakupem nieruchomości nie są uwzględnione. Zakładamy, że najemca prawdopodobnie zakupi kiedyś nieruchomość, więc te koszty poniesie.
+            </p>
+        </div>
+
+
+    </div>
+    <div class="col-md-6">
+        <div class="parameter-label">Okres</div>
+        <div>
+            <mat-slider thumbLabel [min]="1" [max]="loan.months" [step]="1" [(ngModel)]="symulacjaAktualnyMiesiac">
+            </mat-slider>
+        </div>
+        <div class="slider-numbers">
+            <div class="float-start">1</div>
+            <div class="float-end">{{loan.months}}</div>
+        </div>
+        <div class="center-numeric">
+            <div class="input-group mb-3">
+                <button class="btn btn-warning" type="button" (click)="changeSimulationMonth(-1)">-</button>
+                <input (keypress)="isValidInt($event)" type="text" class="form-control"
+                    (change)="changeSimulationMonthInput($event)" value="{{ symulacjaAktualnyMiesiac| number :'1.0' }}">
+                <span class="input-group-text">miesiąc</span>
+                <button class="btn btn-warning" type="button" (click)="changeSimulationMonth(1)">+</button>
+                <span class="input-group-text"> Rok : {{symulacjaAktualnyRok}}</span>
+
+            </div>
+        </div>
+        <br>
+
+        <div class="summary summary-calculation" style="padding-bottom: 0px;">
+            <div>
+                <div class="float-start summary-box">
+
+                    <h1>Miesiąc</h1>
+                    <div style="font-size: 37px; margin-bottom: 5px;" class="summary-value">
+                        {{symulacjaAktualnyMiesiac}}
+                    </div>
+                </div>
+                <div class="float-start summary-box">
+
+                    <h1>Rok</h1>
+                    <div style="font-size: 37px; margin-bottom: 5px;" class="summary-value">
+                        {{symulacjaAktualnyRok}}
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <br>
+        </div>
+        <div class="summary summary-calculation" [ngClass]="isRentBetter ? 'summary-calculation-red' : 'summary-calculation-green'">
+            <div>
+                <h1 class="summary-value">Koszt kupna na kredyt</h1>
+            </div>
+            <div class="float-start summary-box">
+
+                <h2>Zapłacone odsetki</h2>
+                <div class="summary-value">
+                    {{symulacjaZaplaconeOdsetki | currency : "PLN" }}
+                </div>
+            </div>
+            <div class="float-start summary-box">
+
+                <h2>Koszty utrzymania</h2>
+                <div class="summary-value">
+                    {{symulacjaZaplaconeKoszty | currency : "PLN" }}
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="float-start summary-box">
+
+                <h2>Suma kosztów</h2>
+                <div class="summary-value" style="font-size: 37px; margin-bottom: 5px;">
+                    {{ sumaKosztowKredytu | currency : "PLN" }}
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="summary summary-calculation" [ngClass]="isRentBetter ? 'summary-calculation-green' : 'summary-calculation-red'">
+            <div>
+                <h1 class="summary-value">Koszt najmu</h1>
+            </div>
+            <div class="clearfix"></div>
+            <div class="float-start summary-box">
+
+                <h2>Suma kosztów</h2>
+                <div class="summary-value" style="font-size: 37px; margin-bottom: 5px;">
+                    {{ symulacjaZaplaconeNajem | currency : "PLN" }}
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+
+        
+    </div>
+</div>

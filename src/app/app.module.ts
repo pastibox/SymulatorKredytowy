@@ -13,6 +13,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { HarmonogramComponent } from './components/harmonogram/harmonogram.component';
 import { SimulationComponent } from './components/simulation/simulation.component';
 import { SimulationLoanAmountComponent } from './components/simulation-loan-amount/simulation-loan-amount.component';
+import { RentSimulationComponent } from './components/rent-simulation/rent-simulation/rent-simulation.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 registerLocaleData(localePL);
 
 @NgModule({
@@ -20,7 +22,8 @@ registerLocaleData(localePL);
     AppComponent,
     HarmonogramComponent,
     SimulationComponent,
-    SimulationLoanAmountComponent
+    SimulationLoanAmountComponent,
+    RentSimulationComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +32,8 @@ registerLocaleData(localePL);
     MatSliderModule,
     FormsModule,
     MatTableModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTooltipModule
   ],
   providers: [{provide: LOCALE_ID, useValue: 'pl' }],
   bootstrap: [AppComponent]
