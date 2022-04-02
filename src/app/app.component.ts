@@ -68,7 +68,7 @@ export class AppComponent implements OnInit {
 
     interestRateMin: number = 0.0;
     interestRateMax: number = 30;
-    _interestRate: number = 4.00;
+    _interestRate: number = 5.00;
 
     get interestRate(): number {
         return this._interestRate;
@@ -179,7 +179,7 @@ export class AppComponent implements OnInit {
 
     startRecalculate() {
         clearTimeout(this.timeout);
-        this.timeout = setTimeout(() => this.recalculateLoan(this.loanAmount, this.loanMonths, this.interest), 500);
+        this.timeout = setTimeout(() => this.recalculateLoan(this.loanAmount, this.loanMonths, this.interest), 1000);
     }
 
     formatAmount(loanAmount: number) {
