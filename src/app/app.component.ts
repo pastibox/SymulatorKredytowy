@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
     timeout: any;
     _type: string = "stałe";
     _loanAmount: number = 400000;
-    loanAmountMax: number = 1000000;
+    loanAmountMax: number = 2000000;
     loanAmountMin: number = 10000;
     selectedTabIndex = 0;
     isReady = false;
