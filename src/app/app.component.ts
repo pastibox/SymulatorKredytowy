@@ -188,7 +188,7 @@ export class AppComponent implements OnInit {
         }
 
         if (loanAmount >= 1000000) {
-            return Math.round(loanAmount / 1000000) + 'm';
+            return loanAmount / 1000000 + 'M';
         }
 
         return loanAmount;
