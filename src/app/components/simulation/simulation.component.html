@@ -11,7 +11,7 @@
         <td [ngClass]="{'current-row': element.current}" mat-cell *matCellDef="let element">
             <span> {{element.interestRate.toFixed(2) }} % </span>
             <div *ngIf="!element.current" [ngClass]="{'diff-green': element.interestRateDiff < 0}">
-                <span class="diff-amount"><span *ngIf="element.interestRateDiff > 0">+</span>{{element.interestRateDiff.toFixed(2)}} %</span>
+                <span class="diff-amount"><span *ngIf="element.interestRateDiff > 0">+</span>{{element.interestRateDiff.toFixed(2)}} pp</span>
             </div>
         </td>
     </ng-container>
