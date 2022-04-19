@@ -15,6 +15,9 @@ import { SimulationComponent } from './components/simulation/simulation.componen
 import { SimulationLoanAmountComponent } from './components/simulation-loan-amount/simulation-loan-amount.component';
 import { RentSimulationComponent } from './components/rent-simulation/rent-simulation/rent-simulation.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { NgApexchartsModule } from "ng-apexcharts";
+import { LoanChartComponent } from './components/chart/chart.component';
+
 registerLocaleData(localePL);
 
 @NgModule({
@@ -23,7 +26,8 @@ registerLocaleData(localePL);
     HarmonogramComponent,
     SimulationComponent,
     SimulationLoanAmountComponent,
-    RentSimulationComponent
+    RentSimulationComponent,
+    LoanChartComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +37,8 @@ registerLocaleData(localePL);
     FormsModule,
     MatTableModule,
     MatTabsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    NgApexchartsModule
   ],
   providers: [{provide: LOCALE_ID, useValue: 'pl' }],
   bootstrap: [AppComponent]

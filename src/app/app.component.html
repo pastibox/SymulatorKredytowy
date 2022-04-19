@@ -7,7 +7,8 @@
             <div>
                 <div class="parameter-label">Kwota kredytu</div>
                 <div>
-                    <mat-slider thumbLabel [displayWith]="formatAmount" aria-label="units" [min]="loanAmountMin" [max]="loanAmountMax" [step]="10000" [(ngModel)]="loanAmount"></mat-slider>
+                    <mat-slider thumbLabel [displayWith]="formatAmount" aria-label="units" [min]="loanAmountMin"
+                        [max]="loanAmountMax" [step]="10000" [(ngModel)]="loanAmount"></mat-slider>
                 </div>
                 <div class="slider-numbers">
                     <div class="float-start">10k</div>
@@ -16,7 +17,8 @@
                 <div class="center-numeric">
                     <div class="input-group mb-3">
                         <button class="btn btn-warning" type="button" (click)="changeAmount(-10000)">-</button>
-                        <input (keypress)="isValidInt($event)" type="text" class="form-control" (change)="changeAmountInput($event)" value="{{ loanAmount| number :'1.0' }}">
+                        <input (keypress)="isValidInt($event)" type="text" class="form-control"
+                            (change)="changeAmountInput($event)" value="{{ loanAmount| number :'1.0' }}">
                         <span class="input-group-text">PLN</span>
                         <button class="btn btn-warning" type="button" (click)="changeAmount(10000)">+</button>
                     </div>
@@ -25,7 +27,8 @@
             <div>
                 <div class="parameter-label">Okres spłaty w miesiącach</div>
                 <div>
-                    <mat-slider thumbLabel [min]="loanMonthsMin" [max]="loanMonthsMax" [step]="1" [(ngModel)]="loanMonths"></mat-slider>
+                    <mat-slider thumbLabel [min]="loanMonthsMin" [max]="loanMonthsMax" [step]="1"
+                        [(ngModel)]="loanMonths"></mat-slider>
                 </div>
                 <div class="slider-numbers">
                     <div class="float-start">{{loanMonthsMin}}</div>
@@ -34,8 +37,10 @@
                 <div class="center-numeric">
                     <div class="input-group mb-3">
                         <button class="btn btn-warning" type="button" (click)="changeMonths(-1)">-</button>
-                        <input (keypress)="isValidInt($event)" type="text" class="form-control" (change)="changeMonthsInput($event)" value="{{ loanMonths| number :'1.0' }}">
-                        <span class="input-group-text" style="padding: 0px 3px;"><span>miesięcy (lat {{loanYears}}</span><span>&nbsp; mies. {{loanYearsRestMonths}}</span>)</span>
+                        <input (keypress)="isValidInt($event)" type="text" class="form-control"
+                            (change)="changeMonthsInput($event)" value="{{ loanMonths| number :'1.0' }}">
+                        <span class="input-group-text" style="padding: 0px 3px;"><span>miesięcy (lat
+                                {{loanYears}}</span><span>&nbsp; mies. {{loanYearsRestMonths}}</span>)</span>
                         <button class="btn btn-warning" type="button" (click)="changeMonths(1)">+</button>
                     </div>
                 </div>
@@ -44,7 +49,8 @@
             <div>
                 <div class="parameter-label">WIBOR</div>
                 <div>
-                    <mat-slider thumbLabel [displayWith]="formatIntersetRate" [min]="interestRateMin" [max]="interestRateMax" [step]="0.05" [(ngModel)]="interestRate"></mat-slider>
+                    <mat-slider thumbLabel [displayWith]="formatIntersetRate" [min]="interestRateMin"
+                        [max]="interestRateMax" [step]="0.05" [(ngModel)]="interestRate"></mat-slider>
                 </div>
                 <div class="slider-numbers">
                     <div class="float-start">{{interestRateMin}}%</div>
@@ -53,7 +59,8 @@
                 <div class="center-numeric">
                     <div class="input-group mb-3">
                         <button class="btn btn-warning" type="button" (click)="changePercent(-0.05)">-</button>
-                        <input (keypress)="isValidPercent($event)" (change)="changePercentInput($event)" type="text" class="form-control" value="{{ interestRate | number :'1.2-2' }}">
+                        <input (keypress)="isValidPercent($event)" (change)="changePercentInput($event)" type="text"
+                            class="form-control" value="{{ interestRate | number :'1.2-2' }}">
                         <span class="input-group-text">%</span>
                         <button class="btn btn-warning" type="button" (click)="changePercent(0.05)">+</button>
                     </div>
@@ -63,7 +70,8 @@
             <div>
                 <div class="parameter-label">Marża banku</div>
                 <div>
-                    <mat-slider thumbLabel [displayWith]="formatMarginRate" [min]="marginMin" [max]="marginMax" [step]="0.05" [(ngModel)]="margin"></mat-slider>
+                    <mat-slider thumbLabel [displayWith]="formatMarginRate" [min]="marginMin" [max]="marginMax"
+                        [step]="0.05" [(ngModel)]="margin"></mat-slider>
                 </div>
                 <div class="slider-numbers">
                     <div class="float-start">{{marginMin}}%</div>
@@ -72,7 +80,8 @@
                 <div class="center-numeric">
                     <div class="input-group mb-3">
                         <button class="btn btn-warning" type="button" (click)="changeMargin(-0.05)">-</button>
-                        <input (keypress)="isValidPercent($event)" (change)="changeMarginInput($event)" type="text" class="form-control" value="{{ margin | number :'1.2-2' }}">
+                        <input (keypress)="isValidPercent($event)" (change)="changeMarginInput($event)" type="text"
+                            class="form-control" value="{{ margin | number :'1.2-2' }}">
                         <span class="input-group-text">%</span>
                         <button class="btn btn-warning" type="button" (click)="changeMargin(0.05)">+</button>
                     </div>
@@ -83,11 +92,14 @@
                 <div class="parameter-label">Typ raty</div>
                 <div class="center-numeric">
                     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="stałe" [(ngModel)]="type">
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
+                            value="stałe" [(ngModel)]="type">
                         <label style="width: 150px;" class="btn btn-outline-warning" for="btnradio1">Raty stałe</label>
 
-                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="malejące" [(ngModel)]="type" autocomplete="off">
-                        <label style="width: 150px;" class="btn btn-outline-warning" for="btnradio2">Raty malejące</label>
+                        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" value="malejące"
+                            [(ngModel)]="type" autocomplete="off">
+                        <label style="width: 150px;" class="btn btn-outline-warning" for="btnradio2">Raty
+                            malejące</label>
                     </div>
                 </div>
                 <br>
@@ -95,14 +107,22 @@
             <br>
             <div class="dict-text d-none d-lg-block" style="text-align: justify;">
                 <p>
-                    <strong>Oprocentowanie kredytów hipotecznych</strong> - jest pochodną stopy procentowej ustalanej przez Radę Polityki Pieniężnej oraz marży banków. Banki mają w&nbsp;ofercie kredyty hipoteczne ze zmiennym, stałym i&nbsp;okresowo stałym oprocentowaniem. Te pierwsze wiążą się z&nbsp;największym ryzykiem, ponieważ jeżeli poziom stawki referencyjnej obniża się lub rośnie, bank odpowiednio przelicza oprocentowanie kredytu. Najbezpieczniejsze są kredyty o stałym oprocentowaniu obowiązującym przez cały czas kredytowania.<br>
+                    <strong>Oprocentowanie kredytów hipotecznych</strong> - jest pochodną stopy procentowej ustalanej
+                    przez Radę Polityki Pieniężnej oraz marży banków. Banki mają w&nbsp;ofercie kredyty hipoteczne ze
+                    zmiennym, stałym i&nbsp;okresowo stałym oprocentowaniem. Te pierwsze wiążą się z&nbsp;największym
+                    ryzykiem, ponieważ jeżeli poziom stawki referencyjnej obniża się lub rośnie, bank odpowiednio
+                    przelicza oprocentowanie kredytu. Najbezpieczniejsze są kredyty o stałym oprocentowaniu
+                    obowiązującym przez cały czas kredytowania.<br>
                     <br>
                     <strong>Rata kapitałowa</strong> - kapitał pozostały do spłaty. <br>
                     <strong>Rata odsetkowa</strong> - są to odsetki od kapitału pozostałego do spłaty.
                 </p>
 
                 <p>
-                    *Zmiana oprocentowania wiąże się ze zmianą stopy WIBOR, która jest powiązana ze stopą referencyjną Narodowego Banku Polskiego. Można zatem z dobrym przybliżeniem powiedzieć, że wzrost stopy referencyjnej NBP przełoży się na podobny wzrost stopy WIBOR, a w konsekwencji wzrost oprocentowania kredytów mieszkaniowych.
+                    *Zmiana oprocentowania wiąże się ze zmianą stopy WIBOR, która jest powiązana ze stopą referencyjną
+                    Narodowego Banku Polskiego. Można zatem z dobrym przybliżeniem powiedzieć, że wzrost stopy
+                    referencyjnej NBP przełoży się na podobny wzrost stopy WIBOR, a w konsekwencji wzrost oprocentowania
+                    kredytów mieszkaniowych.
                 </p>
             </div>
 
@@ -130,7 +150,7 @@
                         <div class="float-start summary-box">
                             <h2>Oprocentowanie</h2>
                             <div class="summary-value">
-                                {{interest | number :'1.2-2'}} % 
+                                {{interest | number :'1.2-2'}} %
                                 <span style="font-size: 18px; font-weight: 300; opacity: 0.7;">
                                     (WIBOR {{interestRate | number :'1.2-2'}}% + marża {{margin | number :'1.2-2'}}%)
                                 </span>
@@ -157,15 +177,23 @@
                 <br>
                 <div>
                     <div class="progress-labels">
-                        <div class="float-start">RATA KAPITAŁ : {{loan.pierwszaRata?.kapitalPercentReal?.toFixed(2)}} %</div>
-                        <div class="float-end">RATA ODSETKI : {{loan.pierwszaRata?.odsetkiPercentReal?.toFixed(2)}} %</div>
+                        <div class="float-start">RATA KAPITAŁ : {{loan.pierwszaRata?.kapitalPercentReal?.toFixed(2)}} %
+                        </div>
+                        <div class="float-end">RATA ODSETKI : {{loan.pierwszaRata?.odsetkiPercentReal?.toFixed(2)}} %
+                        </div>
                         <div class="clearfix"></div>
                     </div>
                 </div>
 
                 <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" [style.width.%]="loan.pierwszaRata?.kapitalPercent" aria-valuenow="loan.pierwszaRata?.kapitalPercent" aria-valuemin="0" aria-valuemax="100">{{loan.pierwszaRata?.kapital | currency : "PLN"}}</div>
-                    <div class="progress-bar bg-danger" role="progressbar" [style.width.%]="loan.pierwszaRata?.odsetkiPercent" aria-valuenow="loan.pierwszaRata?.odsetkiPercent" aria-valuemin="0" aria-valuemax="100">{{loan.pierwszaRata?.odsetki | currency : "PLN"}}</div>
+                    <div class="progress-bar bg-success" role="progressbar"
+                        [style.width.%]="loan.pierwszaRata?.kapitalPercent"
+                        aria-valuenow="loan.pierwszaRata?.kapitalPercent" aria-valuemin="0" aria-valuemax="100">
+                        {{loan.pierwszaRata?.kapital | currency : "PLN"}}</div>
+                    <div class="progress-bar bg-danger" role="progressbar"
+                        [style.width.%]="loan.pierwszaRata?.odsetkiPercent"
+                        aria-valuenow="loan.pierwszaRata?.odsetkiPercent" aria-valuemin="0" aria-valuemax="100">
+                        {{loan.pierwszaRata?.odsetki | currency : "PLN"}}</div>
                 </div>
                 <div class="row">
                     <div>
@@ -190,13 +218,16 @@
                     </div>
                 </div>
             </div>
+            
             <div>
                 <br>
                 <br>
-                <div style="font-size: 26px; color: #393939; font-weight: 400;" class="parameter-label">Symulacja spłaty kapitału</div>
+                <div style="font-size: 26px; color: #393939; font-weight: 400;" class="parameter-label">Symulacja spłaty
+                    kapitału</div>
                 <br>
                 <div>
-                    <mat-slider thumbLabel [min]="1" [max]="loan.months" [step]="1" [(ngModel)]="symulacjaAktualnyMiesiac"></mat-slider>
+                    <mat-slider thumbLabel [min]="1" [max]="loan.months" [step]="1"
+                        [(ngModel)]="symulacjaAktualnyMiesiac"></mat-slider>
                 </div>
                 <div class="slider-numbers">
                     <div class="float-start">1</div>
@@ -205,7 +236,9 @@
                 <div class="center-numeric">
                     <div class="input-group mb-3">
                         <button class="btn btn-warning" type="button" (click)="changeSimulationMonth(-1)">-</button>
-                        <input (keypress)="isValidInt($event)" type="text" class="form-control" (change)="changeSimulationMonthInput($event)" value="{{ symulacjaAktualnyMiesiac| number :'1.0' }}">
+                        <input (keypress)="isValidInt($event)" type="text" class="form-control"
+                            (change)="changeSimulationMonthInput($event)"
+                            value="{{ symulacjaAktualnyMiesiac| number :'1.0' }}">
                         <span class="input-group-text">miesiąc</span>
                         <button class="btn btn-warning" type="button" (click)="changeSimulationMonth(1)">+</button>
                         <span class="input-group-text"> Rok : {{symulacjaAktualnyRok}}</span>
@@ -247,14 +280,22 @@
 
                     <div>
                         <div class="progress-labels">
-                            <div class="float-start">RATA KAPITAŁ : {{symulacjaAktualnyMiesiacObjekt.kapitalPercentReal?.toFixed(2)}} %</div>
-                            <div class="float-end">RATA ODSETKI : {{symulacjaAktualnyMiesiacObjekt.odsetkiPercentReal?.toFixed(2)}} %</div>
+                            <div class="float-start">RATA KAPITAŁ :
+                                {{symulacjaAktualnyMiesiacObjekt.kapitalPercentReal?.toFixed(2)}} %</div>
+                            <div class="float-end">RATA ODSETKI :
+                                {{symulacjaAktualnyMiesiacObjekt.odsetkiPercentReal?.toFixed(2)}} %</div>
                             <div class="clearfix"></div>
                         </div>
                     </div>
                     <div class="progress">
-                        <div class="progress-bar bg-success" role="progressbar" [style.width.%]="symulacjaAktualnyMiesiacObjekt.kapitalPercent" aria-valuenow="symulacjaAktualnyMiesiacObjekt.kapitalPercent" aria-valuemin="0" aria-valuemax="100">{{symulacjaAktualnyMiesiacObjekt.kapital | currency : "PLN"}}</div>
-                        <div class="progress-bar bg-danger" role="progressbar" [style.width.%]="symulacjaAktualnyMiesiacObjekt.odsetkiPercent" aria-valuenow="symulacjaAktualnyMiesiacObjekt.odsetkiPercent" aria-valuemin="0" aria-valuemax="100">{{symulacjaAktualnyMiesiacObjekt.odsetki | currency : "PLN"}}</div>
+                        <div class="progress-bar bg-success" role="progressbar"
+                            [style.width.%]="symulacjaAktualnyMiesiacObjekt.kapitalPercent"
+                            aria-valuenow="symulacjaAktualnyMiesiacObjekt.kapitalPercent" aria-valuemin="0"
+                            aria-valuemax="100">{{symulacjaAktualnyMiesiacObjekt.kapital | currency : "PLN"}}</div>
+                        <div class="progress-bar bg-danger" role="progressbar"
+                            [style.width.%]="symulacjaAktualnyMiesiacObjekt.odsetkiPercent"
+                            aria-valuenow="symulacjaAktualnyMiesiacObjekt.odsetkiPercent" aria-valuemin="0"
+                            aria-valuemax="100">{{symulacjaAktualnyMiesiacObjekt.odsetki | currency : "PLN"}}</div>
                     </div>
                     <div class="float-start summary-box">
 
@@ -268,7 +309,9 @@
                         <h2>Kapitał spłacony</h2>
                         <div class="summary-value">
                             {{( loanAmount - symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala) | currency : "PLN" }}
-                            <span style="font-size: 24px;font-weight: 300; opacity: 0.7;">({{ (loanAmount - symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala) / loanAmount | percent :'2.2-2'}})</span>
+                            <span style="font-size: 24px;font-weight: 300; opacity: 0.7;">({{ (loanAmount -
+                                symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala) / loanAmount | percent
+                                :'2.2-2'}})</span>
                         </div>
                     </div>
                     <div class="float-start summary-box">
@@ -276,17 +319,20 @@
                         <h2>Kapitał do spłaty</h2>
                         <div class="summary-value">
                             {{symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala | currency : "PLN" }}
-                            <span style="font-weight: 300; opacity: 0.7;">({{symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala / loanAmount | percent :'2.2-2'}})</span>
+                            <span
+                                style="font-weight: 300; opacity: 0.7;">({{symulacjaAktualnyMiesiacObjekt.kwotaKredytuPozostala
+                                / loanAmount | percent :'2.2-2'}})</span>
                         </div>
                     </div>
 
                     <div class="clearfix"></div>
+
                 </div>
 
             </div>
-
+            <app-chart [loan]="loan"></app-chart>
         </div>
-
+       
     </div>
     <hr>
     <app-rent-simulation [loan]="loan"></app-rent-simulation>
@@ -294,8 +340,8 @@
     <br>
     <mat-tab-group (selectedTabChange)="tabChanged($event)">
         <mat-tab label="Symulacja zmiany raty">
-            <div class="tab-content" >
-               <app-simulation *ngIf="isReady" [symulacja]="symulacja"></app-simulation>
+            <div class="tab-content">
+                <app-simulation *ngIf="isReady" [symulacja]="symulacja"></app-simulation>
             </div>
         </mat-tab>
         <mat-tab label="Harmonogram spłat">
