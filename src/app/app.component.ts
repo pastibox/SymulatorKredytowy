@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
 
     timeout: any;
     _type: string = "stałe";
-    _loanAmount: number = 400000;
+    _loanAmount: number = 500000;
     loanAmountMax: number = 2000000;
     loanAmountMin: number = 10000;
     selectedTabIndex = 0;
@@ -68,7 +68,7 @@ export class AppComponent implements OnInit {
 
     interestRateMin: number = 0.0;
     interestRateMax: number = 30;
-    _interestRate: number = 6.00;
+    _interestRate: number = 7.00;
 
     get interestRate(): number {
         return this._interestRate;
