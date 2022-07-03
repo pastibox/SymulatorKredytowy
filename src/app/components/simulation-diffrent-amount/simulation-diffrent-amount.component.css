@@ -9,7 +9,14 @@
     margin-top: 10px;
     height: 20px;
 }
+.summary {
+    padding: 5px;
+}
 
 .summary-parameters, .summary-calculation {
     height: 100%;
+}
+
+.summary .summary-value {
+    font-size: 18px;
 }
