@@ -1,0 +1,105 @@
+<div>
+    <div class="row mb-1 gx-1" *ngFor='let loan of symulacja;'>
+
+
+        <div class="col-lg-4">
+            <div class="summary summary-parameters">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="summary-box">
+                            <h4>Kwota kredytu</h4>
+                            <div class="summary-value">
+                                {{loan.amount| currency : "PLN"}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="summary-box">
+                            <h4>Okres spłaty w miesiącach</h4>
+                            <div class="summary-value">
+                                {{loan.months }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+    
+                        <div class="summary-box">
+                            <h4>Oprocentowanie</h4>
+                            <div class="summary-value">
+                                {{loan.interestRate | number :'1.2-2'}} %
+                                <span style="font-size: 18px; font-weight: 300; opacity: 0.7;">
+                                    (WIBOR {{interestRate | number :'1.2-2'}}% + marża {{margin | number :'1.2-2'}}%)
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="summary summary-calculation">
+                <div class="row">
+    
+    
+                    <div class="col-lg-3">
+                        <div class="summary-box">
+                            <h4>Rata kredytu</h4>
+                            <div class="summary-value">
+                                {{loan.pierwszaRata?.rataKredytu | currency : "PLN"}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6"></div>
+                    <div class="col-lg-3">
+                        <div class="summary-box">
+                            <h4>Odsetki suma</h4>
+                            <div class="summary-value">
+                                {{loan.odsetkiSuma | currency : "PLN" }}
+                            </div>
+                        </div>
+                        
+    
+                    </div>
+                  <!--   <div class="float-start summary-box" style="width: 200px;">
+    
+                        <h4>Spłata razem</h4>
+                        <div class="summary-value">
+                            {{loan.splataRazem | currency : "PLN"}}
+                        </div>
+    
+    
+                    </div> -->
+    
+                </div>
+               
+    
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar"
+                        [style.width.%]="loan.pierwszaRata?.kapitalPercent"
+                        aria-valuenow="loan.pierwszaRata?.kapitalPercent" aria-valuemin="0" aria-valuemax="100">
+                        {{loan.pierwszaRata?.kapital | currency : "PLN"}}</div>
+                    <div class="progress-bar bg-danger" role="progressbar"
+                        [style.width.%]="loan.pierwszaRata?.odsetkiPercent"
+                        aria-valuenow="loan.pierwszaRata?.odsetkiPercent" aria-valuemin="0" aria-valuemax="100">
+                        {{loan.pierwszaRata?.odsetki | currency : "PLN"}}</div>
+                </div>
+                <div>
+                    <div class="progress-labels">
+                        <div class="float-start">RATA KAPITAŁ : {{loan.pierwszaRata?.kapitalPercentReal?.toFixed(2)}} %
+                        </div>
+                        <div class="float-end">RATA ODSETKI : {{loan.pierwszaRata?.odsetkiPercentReal?.toFixed(2)}} %
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    
+    
+    
+    </div>
+</div>

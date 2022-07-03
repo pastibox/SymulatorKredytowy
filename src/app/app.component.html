@@ -355,6 +355,11 @@
                 <app-simulation-loan-amount *ngIf="isReady" [symulacja]="symulacja2"></app-simulation-loan-amount>
             </div>
         </mat-tab>
+        <mat-tab label="Symulacja dla różnych kwot">
+            <div class="tab-content">
+                <app-simulation-diffrent-amount *ngIf="isReady" [symulacja]="symulacjaKwoty" [margin]="margin" [interestRate]="interestRate"></app-simulation-diffrent-amount>
+            </div>
+        </mat-tab>
     </mat-tab-group>
     <br>
 </div>

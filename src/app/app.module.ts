@@ -17,6 +17,7 @@ import { RentSimulationComponent } from './components/rent-simulation/rent-simul
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { LoanChartComponent } from './components/chart/chart.component';
+import { SimulationDiffrentAmountComponent } from './components/simulation-diffrent-amount/simulation-diffrent-amount.component';
 
 registerLocaleData(localePL);
 
@@ -27,7 +28,8 @@ registerLocaleData(localePL);
     SimulationComponent,
     SimulationLoanAmountComponent,
     RentSimulationComponent,
-    LoanChartComponent
+    LoanChartComponent,
+    SimulationDiffrentAmountComponent
   ],
   imports: [
     BrowserModule,

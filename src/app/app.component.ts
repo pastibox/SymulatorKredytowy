@@ -105,6 +105,7 @@ export class AppComponent implements OnInit {
 
     symulacja: Loan[] = [];
     symulacja2: Loan[] = [];
+    symulacjaKwoty: Loan[] = [];
 
     symulacjaAktualnyMiesiac: number = 1;
     get symulacjaAktualnyRok(): number {
@@ -207,6 +208,7 @@ export class AppComponent implements OnInit {
         this.appendAQueryParam();
         this.symulacja = [];
         this.symulacja2 = [];
+        this.symulacjaKwoty = [];
         this.symulacjaAktualnyMiesiac = 1;
         this.loan = new Loan(this.loanType, loanAmount, loanMonths, interestRate);
 
@@ -310,6 +312,22 @@ export class AppComponent implements OnInit {
 
             });
         }
+
+        if (this.selectedTabIndex == 3) {
+            this.symulacjaKwoty.push(new Loan(this.loanType, 100000, loanMonths, interestRate));
+            this.symulacjaKwoty.push(new Loan(this.loanType, 200000, loanMonths, interestRate));
+            this.symulacjaKwoty.push(new Loan(this.loanType, 300000, loanMonths, interestRate));
+            this.symulacjaKwoty.push(new Loan(this.loanType, 400000, loanMonths, interestRate));
+            this.symulacjaKwoty.push(new Loan(this.loanType, 500000, loanMonths, interestRate));
+            this.symulacjaKwoty.push(new Loan(this.loanType, 600000, loanMonths, interestRate));
+            this.symulacjaKwoty.push(new Loan(this.loanType, 700000, loanMonths, interestRate));
+            this.symulacjaKwoty.push(new Loan(this.loanType, 1000000, loanMonths, interestRate));
+            this.symulacjaKwoty.push(new Loan(this.loanType, 2000000, loanMonths, interestRate));
+        }
+
+        
+
+
         this.isReady = true;
     }
 

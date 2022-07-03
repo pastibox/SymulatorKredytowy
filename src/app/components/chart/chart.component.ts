@@ -30,7 +30,6 @@ export class LoanChartComponent implements OnInit {
 
     @Input()
     set loan(value: Loan) {
-        debugger;
         this._loan = value;
         this.RenderChart();
     }
