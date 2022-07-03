@@ -196,6 +196,29 @@
                         {{loan.pierwszaRata?.odsetki | currency : "PLN"}}</div>
                 </div>
                 <div class="row">
+                    <div *ngIf="loan.months >= 120">
+                        <div class="float-start summary-box">
+
+                            <h2>Kapitał pierwsze 10 lat</h2>
+                            <div class="summary-value">
+                                <span> {{loan.kapitalSuma10Lat | currency : "PLN"}}</span>
+                                <span style="font-weight: 300; opacity: 0.7;">({{
+                                    loan.kapitalSuma10Lat / loan.amount | percent
+                                    :'2.2-2'}})</span>
+                            </div>
+
+                        </div>
+                        <div class="float-start summary-box">
+
+                            <h2>Odsetki pierwsze 10 lat</h2>
+                            <div class="summary-value">
+                                <span> {{loan.odsetkiSuma10Lat | currency : "PLN"}}</span>
+                            </div>
+
+
+                        </div>
+
+                    </div>
                     <div>
                         <div class="float-start summary-box">
 
@@ -216,6 +239,7 @@
                         </div>
 
                     </div>
+                    
                 </div>
             </div>
             
