@@ -52,7 +52,25 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6"></div>
+                    <div class="col-lg-3">
+                        <div class="summary-box">
+                            <h4>Kapitał pierwsze 10 lat</h4>
+                            <div class="summary-value">
+                                <span> {{loan.kapitalSuma10Lat | currency : "PLN"}}</span>
+                                <span style="font-size: 16px;font-weight: 300; opacity: 0.7;">({{
+                                    loan.kapitalSuma10Lat / loan.amount | percent
+                                    :'2.2-2'}})</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="summary-box">
+                            <h4>Odsetki pierwsze 10 lat</h4>
+                            <div class="summary-value">
+                                <span> {{loan.odsetkiSuma10Lat | currency : "PLN"}}</span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-lg-3">
                         <div class="summary-box">
                             <h4>Odsetki suma</h4>
@@ -60,8 +78,6 @@
                                 {{loan.odsetkiSuma | currency : "PLN" }}
                             </div>
                         </div>
-                        
-    
                     </div>
                   <!--   <div class="float-start summary-box" style="width: 200px;">
     
